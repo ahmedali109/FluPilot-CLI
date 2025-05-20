@@ -5,3 +5,9 @@ source ./scripts/helper/cli_flags_function.sh
 
 #Show ASCII BANNER
 source ./scripts/setup/ascii_banner.sh
+
+#Choose form package manager
+source ./scripts/setup/select_packages.sh
+
+#Add packages and dependencies
+source ./scripts/setup/add_packages.sh
