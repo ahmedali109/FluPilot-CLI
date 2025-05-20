@@ -1,0 +1,22 @@
+{
+  "name": "flupilot-cli",
+  "version": "1.0.0",
+  "description": "FluPilot CLI is a lightweight tool to scaffold Flutter projects faster — with interactive package selection, auto-generated boilerplate, and a clean project setup",
+  "bin": {
+    "flupilot-cli": "./scripts/main.sh"
+  },
+  "files": [
+    "./scripts/main.sh"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ahmedali109/FluPilot-CLI.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ahmedali109/FluPilot-CLI/issues"
+  },
+  "homepage": "https://github.com/ahmedali109/FluPilot-CLI#readme"
+}
