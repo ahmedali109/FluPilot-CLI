@@ -14,3 +14,6 @@ source ./scripts/setup/select_packages.sh
 
 #Add packages and dependencies
 source ./scripts/setup/add_packages.sh
+
+#Choose IDE to open
+source ./scripts/pickers/pick_ide.sh
