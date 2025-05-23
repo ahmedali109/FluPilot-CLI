@@ -13,7 +13,7 @@ function show_help() {
 }
 
 # Detect --version or --help
-case "$1" in
+case "${1:-}" in
   --version|-v)
     # Read from package.json
     VERSION=$(node -p "require('./package.json').version")
