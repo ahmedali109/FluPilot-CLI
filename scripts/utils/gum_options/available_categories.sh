@@ -3,36 +3,41 @@
 source ./scripts/utils/constant/gum_options_strings.sh
 
 CATEGORIES=(
-  # UI/UX Elements
+  # App Setup
   $CAT_APP_ICON
   $CAT_SPLASH
-  $CAT_ON_BOARDING
-  $CAT_ANIMATION
-  $CAT_INDICATORS
-  $CAT_BOTTOM_NAV_BAR
+  $CAT_ONBOARDING
 
-  # State & Navigation
+  # UI/UX
+  $CAT_UI_ANIMATIONS
+  $CAT_UI_INDICATORS
+  $CAT_UI_BOTTOM_NAV
+  $CAT_UI_UTILITIES
+  $CAT_UI_RESPONSIVE
+
+  # Architecture
   $CAT_STATE_MANAGEMENT
   $CAT_NAVIGATION
 
-  # Data Handling
+  # Networking & Code Gen
   $CAT_NETWORKING
-  $CAT_DEPENDENCY_INJECTION
-  $CAT_STORAGE
-  $CAT_CLOUD
+  $CAT_CODE_GEN
+  $CAT_DEP_INJECTION
 
-  # Security & Permissions
-  $CAT_AUTH
-  $CAT_BIOMETRIC
+  # Storage
+  $CAT_STORAGE_LOCAL
+  $CAT_STORAGE_GRAPHQL
+
+  # Cloud & Auth
+  $CAT_CLOUD
+  $CAT_AUTH_SOCIAL
+  $CAT_AUTH_BIOMETRIC
 
   # Localization & Notifications
   $CAT_LOCALIZATION
   $CAT_NOTIFICATIONS
 
-  # Responsive Design
-  $CAT_RESPONSIVE
-
-  # Developer Utilities
-  $CAT_UTILITIES
-  $CAT_OTHERS
+  # Utilities
+  $CAT_SYSTEM_UTILS
 )
+
