@@ -9,14 +9,15 @@ function create_default_icon_yaml() {
 # flutter pub run flutter_launcher_icons
 flutter_launcher_icons:
   android: true
-  image_path_android: "assets/images/icon.png"
+  image_path_android: 'assets/images/app-icon-android.png'
   min_sdk_android: 21 # android min sdk min:16, default 21
-  # adaptive_icon_background: "assets/images/background.png"
-  # adaptive_icon_foreground: "assets/images/foreground.png"
+  adaptive_icon_background: 'assets/images/app-icon-background.png'
+  adaptive_icon_foreground: 'assets/images/app-icon-foreground.png'
   # adaptive_icon_monochrome: "assets/images/monochrome.png"
 
   ios: true
-  image_path_ios: "assets/images/icon.png"
+  image_path_ios: 'assets/images/app-icon.png'
+  remove_alpha_ios: true
   remove_alpha_channel_ios: true
   # image_path_ios_dark_transparent: "assets/images/icon_dark.png"
   # image_path_ios_tinted_grayscale: "assets/images/icon_tinted.png"
