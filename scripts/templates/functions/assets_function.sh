@@ -33,7 +33,7 @@ function assets_function(){
   echo "✅ Successfully copied images to ${DEST_DIR}/icons/"
   echo "📝 Updating pubspec.yaml to include assets..."
 
-  source ./scripts/templates/helper/add_assets.sh
+  source ./scripts/templates/helper/add_assets_yaml.sh
 
   if [[ $? -ne 0 ]]; then
     echo "❌ Failed to update pubspec.yaml"
@@ -47,7 +47,7 @@ function assets_function(){
   echo "🎉 Assets setup completed successfully!"
   echo "You can now use the assets in your Flutter project."
   echo
-  echo 
+  echo
 }
 
 # Function to generate the app icon

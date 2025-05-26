@@ -25,12 +25,12 @@ while :; do
     continue
   fi
 
-  if [ -d "$PROJECT_NAME" ]; then
-    echo "❌ Project folder '$PROJECT_NAME' already exists. Please enter a different name."
-  else
-    break
- fi
-
+  if [ -d "$project_dir/$PROJECT_NAME" ]; then
+      echo "❌ Project folder '$PROJECT_NAME' already exists in the selected directory. Please enter a different name."
+    else
+      break
+  fi
+  
 done
 
 echo
