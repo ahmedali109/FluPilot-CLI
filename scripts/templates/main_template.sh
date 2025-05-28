@@ -7,6 +7,11 @@ source ./scripts/templates/functions/app_icon_function.sh
 source ./scripts/templates/functions/splash_function.sh
 source ./scripts/templates/functions/onBoarding_function.sh
 source ./scripts/templates/functions/slidable_function.sh
+source ./scripts/templates/functions/pull_to_refresh.sh
+source ./scripts/templates/functions/actionSlider.sh
+source ./scripts/templates/functions/googleNavBar.sh
+source ./scripts/templates/functions/imagePicker.sh
+source ./scripts/templates/functions/audioPlayers.sh
 
 if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for selected packages?"; then
     contains() {
@@ -16,7 +21,11 @@ if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for sele
       return 1
     }
 
-    assets_function
+    if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Adding Projects Assets?"; then
+     assets_function
+    fi
+
+    echo "🛠️ Generating templates for selected packages..."
 
     if contains "flutter_launcher_icons" "${SELECTED_PACKAGES[@]}"; then
       app_icon_function
@@ -32,6 +41,26 @@ if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for sele
 
     if contains "flutter_slidable" "${SELECTED_PACKAGES[@]}"; then
       SlidableFunction
+    fi
+
+    if contains "liquid_pull_to_refresh" "${SELECTED_PACKAGES[@]}"; then
+      pullToRefresh
+    fi
+
+    if contains "action_slider" "${SELECTED_PACKAGES[@]}"; then
+      actionSlider
+    fi
+
+    if contains "google_nav_bar" "${SELECTED_PACKAGES[@]}"; then
+      googleNavBar
+    fi
+
+    if contains "image_picker" "${SELECTED_PACKAGES[@]}"; then
+      imagePicker
+    fi
+
+    if contains "audioplayers" "${SELECTED_PACKAGES[@]}"; then
+      audioPlayers
     fi
 
     echo "✅ Templates generated successfully."
