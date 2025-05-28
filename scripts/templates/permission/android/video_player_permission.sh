@@ -1,6 +1,6 @@
 #!/bin/bash
 
-function add_audio_player_service_Android_permission(){
+function add_video_player_service_Android_permission(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
   MANIFEST_FILE="$DEST_DIR/android/app/src/main/AndroidManifest.xml"
   if [ -z "$DEST_DIR" ]; then

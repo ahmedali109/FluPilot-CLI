@@ -1,7 +1,6 @@
 #!/bin/bash
 
 source ./scripts/templates/helper/create_audio_player_service.sh
-source ./scripts/templates/permission/android/audio_player_permission.sh
 
 function audioPlayers(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -31,11 +30,7 @@ function audioPlayers(){
   }
 
   create_audio_player_service
-
-  echo "📄 Configured Permission in AndroidManifest.xml."
-  add_audio_player_service_Android_permission
-  echo "✅ Permissions added to AndroidManifest.xml."
-
+  
   # Navigate back to the original directory
   echo "🔙 Returning to the original directory..."
   echo
