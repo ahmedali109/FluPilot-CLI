@@ -20,4 +20,4 @@ function add_video_player_service_Android_permission(){
   fi
 }
 
-export -f add_audio_player_service_Android_permission
+export -f add_video_player_service_Android_permission

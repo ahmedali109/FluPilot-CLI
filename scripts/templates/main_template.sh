@@ -12,6 +12,7 @@ source ./scripts/templates/functions/actionSlider.sh
 source ./scripts/templates/functions/googleNavBar.sh
 source ./scripts/templates/functions/imagePicker.sh
 source ./scripts/templates/functions/audioPlayers.sh
+source ./scripts/templates/functions/videoPlayers.sh
 
 if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for selected packages?"; then
     contains() {
@@ -61,6 +62,10 @@ if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for sele
 
     if contains "audioplayers" "${SELECTED_PACKAGES[@]}"; then
       audioPlayers
+    fi
+
+    if contains "video_player" "${SELECTED_PACKAGES[@]}"; then
+      videoPlayers
     fi
 
     echo "✅ Templates generated successfully."
