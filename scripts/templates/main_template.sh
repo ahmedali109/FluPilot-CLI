@@ -17,83 +17,94 @@ source ./scripts/templates/functions/goRouter.sh
 source ./scripts/templates/functions/flutterBloc.sh
 source ./scripts/templates/functions/http.sh
 source ./scripts/templates/functions/dio.sh
+source ./scripts/templates/functions/retrofit.sh
 
-if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for selected packages?"; then
+if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
+  if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for selected packages?"; then
 
-    for package in "${SELECTED_PACKAGES[@]}"; do
-      echo "Selected package: $package"
-    done
+      for package in "${SELECTED_PACKAGES[@]}"; do
+        echo "Selected package: $package"
+      done
 
-    contains() {
-      local e match="$1"
-      shift
-      for e; do [[ "$e" == "$match" ]] && return 0; done
-      return 1
-    }
+      contains() {
+        local e match="$1"
+        shift
+        for e; do [[ "$e" == "$match" ]] && return 0; done
+        return 1
+      }
 
-    if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Adding Projects Assets?"; then
-     assets_function
-    fi
-
-    echo "🛠️ Generating templates for selected packages..."
-
-    if contains "flutter_launcher_icons" "${SELECTED_PACKAGES[@]}"; then
-      app_icon_function
-    fi
-
-    if contains "flutter_native_splash" "${SELECTED_PACKAGES[@]}"; then
-      splash_function
-    fi
-
-    if contains "introduction_screen" "${SELECTED_PACKAGES[@]}"; then
-      onBoarding_function
-    fi
-
-    if contains "flutter_slidable" "${SELECTED_PACKAGES[@]}"; then
-      SlidableFunction
-    fi
-
-    if contains "liquid_pull_to_refresh" "${SELECTED_PACKAGES[@]}"; then
-      pullToRefresh
-    fi
-
-    if contains "action_slider" "${SELECTED_PACKAGES[@]}"; then
-      actionSlider
-    fi
-
-    if contains "google_nav_bar" "${SELECTED_PACKAGES[@]}"; then
-      googleNavBar
-    fi
-
-    if contains "image_picker" "${SELECTED_PACKAGES[@]}"; then
-      imagePicker
-    fi
-
-    if contains "audioplayers" "${SELECTED_PACKAGES[@]}"; then
-      audioPlayers
-    fi
-
-    if contains "video_player" "${SELECTED_PACKAGES[@]}"; then
-      videoPlayers
-    fi
-
-    if contains "go_router" "${SELECTED_PACKAGES[@]}"; then
-      goRouter
-    fi
-
-    if contains "flutter_bloc" "${SELECTED_PACKAGES[@]}"; then
-      if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Do You Want to Create Cubit ?"; then
-        flutterBloc
+      if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Adding Projects Assets?"; then
+      assets_function
       fi
-    fi
 
-    if contains "http" "${SELECTED_PACKAGES[@]}"; then
-      http
-    fi
+      echo "🛠️ Generating templates for selected packages..."
 
-    if contains "dio" "${SELECTED_PACKAGES[@]}"; then
-      dio
-    fi
+      if contains "flutter_launcher_icons" "${SELECTED_PACKAGES[@]}"; then
+        app_icon_function
+      fi
 
-    echo "✅ Templates generated successfully."
+      if contains "flutter_native_splash" "${SELECTED_PACKAGES[@]}"; then
+        splash_function
+      fi
+
+      if contains "introduction_screen" "${SELECTED_PACKAGES[@]}"; then
+        onBoarding_function
+      fi
+
+      if contains "flutter_slidable" "${SELECTED_PACKAGES[@]}"; then
+        SlidableFunction
+      fi
+
+      if contains "liquid_pull_to_refresh" "${SELECTED_PACKAGES[@]}"; then
+        pullToRefresh
+      fi
+
+      if contains "action_slider" "${SELECTED_PACKAGES[@]}"; then
+        actionSlider
+      fi
+
+      if contains "google_nav_bar" "${SELECTED_PACKAGES[@]}"; then
+        googleNavBar
+      fi
+
+      if contains "image_picker" "${SELECTED_PACKAGES[@]}"; then
+        imagePicker
+      fi
+
+      if contains "audioplayers" "${SELECTED_PACKAGES[@]}"; then
+        audioPlayers
+      fi
+
+      if contains "video_player" "${SELECTED_PACKAGES[@]}"; then
+        videoPlayers
+      fi
+
+      if contains "go_router" "${SELECTED_PACKAGES[@]}"; then
+        goRouter
+      fi
+
+      if contains "flutter_bloc" "${SELECTED_PACKAGES[@]}"; then
+        if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Do You Want to Create Cubit ?"; then
+          flutterBloc
+        fi
+      fi
+
+      if contains "http" "${SELECTED_PACKAGES[@]}"; then
+        http
+      fi
+
+      if contains "dio" "${SELECTED_PACKAGES[@]}"; then
+        dio
+      fi
+
+      if contains "retrofit" "${SELECTED_PACKAGES[@]}"; then
+        retrofit
+      fi
+
+      echo "✅ Templates generated successfully."
+  fi
+else
+  echo "❌ No packages selected. Skipping template generation."
+  echo "⚠️ Please Add Packages."
+  exit 1
 fi
