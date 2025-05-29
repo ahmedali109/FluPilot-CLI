@@ -15,6 +15,7 @@ source ./scripts/templates/functions/audioPlayers.sh
 source ./scripts/templates/functions/videoPlayers.sh
 source ./scripts/templates/functions/goRouter.sh
 source ./scripts/templates/functions/flutterBloc.sh
+source ./scripts/templates/functions/http.sh
 
 if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for selected packages?"; then
 
@@ -83,6 +84,10 @@ if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for sele
       if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Do You Want to Create Cubit ?"; then
         flutterBloc
       fi
+    fi
+
+    if contains "http" "${SELECTED_PACKAGES[@]}"; then
+      http
     fi
 
     echo "✅ Templates generated successfully."
