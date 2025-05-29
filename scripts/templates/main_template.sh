@@ -14,8 +14,14 @@ source ./scripts/templates/functions/imagePicker.sh
 source ./scripts/templates/functions/audioPlayers.sh
 source ./scripts/templates/functions/videoPlayers.sh
 source ./scripts/templates/functions/goRouter.sh
+source ./scripts/templates/functions/flutterBloc.sh
 
 if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for selected packages?"; then
+
+    for package in "${SELECTED_PACKAGES[@]}"; do
+      echo "Selected package: $package"
+    done
+
     contains() {
       local e match="$1"
       shift
@@ -71,6 +77,12 @@ if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for sele
 
     if contains "go_router" "${SELECTED_PACKAGES[@]}"; then
       goRouter
+    fi
+
+    if contains "flutter_bloc" "${SELECTED_PACKAGES[@]}"; then
+      if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Do You Want to Create Cubit ?"; then
+        flutterBloc
+      fi
     fi
 
     echo "✅ Templates generated successfully."
