@@ -16,8 +16,8 @@ CATEGORIES=(
   $CAT_UI_RESPONSIVE
 
   # Architecture
-  $CAT_STATE_MANAGEMENT
   $CAT_NAVIGATION
+  $CAT_STATE_MANAGEMENT
 
   # Networking & Code Gen
   $CAT_NETWORKING
@@ -40,4 +40,3 @@ CATEGORIES=(
   # Utilities
   $CAT_SYSTEM_UTILS
 )
-
