@@ -16,6 +16,7 @@ source ./scripts/templates/functions/videoPlayers.sh
 source ./scripts/templates/functions/goRouter.sh
 source ./scripts/templates/functions/flutterBloc.sh
 source ./scripts/templates/functions/http.sh
+source ./scripts/templates/functions/dio.sh
 
 if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for selected packages?"; then
 
@@ -88,6 +89,10 @@ if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for sele
 
     if contains "http" "${SELECTED_PACKAGES[@]}"; then
       http
+    fi
+
+    if contains "dio" "${SELECTED_PACKAGES[@]}"; then
+      dio
     fi
 
     echo "✅ Templates generated successfully."
