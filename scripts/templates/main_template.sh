@@ -24,6 +24,7 @@ source ./scripts/templates/functions/internet_connection_checker.sh
 source ./scripts/templates/functions/internet_connection_checker_plus.sh
 source ./scripts/templates/functions/json_serializable.sh
 source ./scripts/templates/functions/freezed.sh
+source ./scripts/templates/functions/get_it.sh
 
 if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
   if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for selected packages?"; then
@@ -151,6 +152,10 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
         fi
         echo "✅ build_runner completed successfully."
         cd - >/dev/null || exit 1
+      fi
+
+      if contains "get_it" "${SELECTED_PACKAGES[@]}"; then
+        get_it
       fi
 
       echo "✅ Templates generated successfully."
