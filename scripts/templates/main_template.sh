@@ -25,6 +25,10 @@ source ./scripts/templates/functions/internet_connection_checker_plus.sh
 source ./scripts/templates/functions/json_serializable.sh
 source ./scripts/templates/functions/freezed.sh
 source ./scripts/templates/functions/get_it.sh
+source ./scripts/templates/functions/shared_preferences.sh
+source ./scripts/templates/gen/app_regex.sh
+source ./scripts/templates/gen/extensions.sh
+source ./scripts/templates/gen/spacing.sh
 
 if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
   if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for selected packages?"; then
@@ -157,6 +161,14 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
       if contains "get_it" "${SELECTED_PACKAGES[@]}"; then
         get_it
       fi
+
+      if contains "shared_preferences" "${SELECTED_PACKAGES[@]}"; then
+        shared_preferences
+      fi
+
+      appRegex
+      extensions
+      spacing
 
       echo "✅ Templates generated successfully."
   fi

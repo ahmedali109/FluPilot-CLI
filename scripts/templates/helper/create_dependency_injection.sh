@@ -6,8 +6,9 @@ function create_dependency_injection(){
   cat <<EOL > "$DEPENDENCY_INJECTION_FILE"
 import 'package:get_it/get_it.dart';
 import 'package:dio/dio.dart';
-import 'api_service.dart';
-import 'dio_factory.dart';
+
+import '../networking/api_service.dart';
+import '../networking/dio_factory.dart';
 
 final getIt = GetIt.instance;
 
