@@ -10,7 +10,7 @@ function retrofit() {
     exit 1
   fi
 
-  mkdir -p "$DEST_DIR//lib/core/networking" || {
+  mkdir -p "$DEST_DIR/lib/core/networking" || {
     echo "❌ Failed to create directory $DEST_DIR/lib/core/networking"
     exit 1
   }
