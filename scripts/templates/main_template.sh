@@ -19,6 +19,9 @@ source ./scripts/templates/functions/http.sh
 source ./scripts/templates/functions/dio.sh
 source ./scripts/templates/functions/retrofit.sh
 source ./scripts/templates/functions/cached_network_image.sh
+source ./scripts/templates/functions/connectivity_plus.sh
+source ./scripts/templates/functions/internet_connection_checker.sh
+source ./scripts/templates/functions/internet_connection_checker_plus.sh
 
 if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
   if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for selected packages?"; then
@@ -104,6 +107,18 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
 
       if contains "cached_network_image" "${SELECTED_PACKAGES[@]}"; then
         cached_network_image
+      fi
+
+      if contains "connectivity_plus" "${SELECTED_PACKAGES[@]}"; then
+        connectivity_plus
+      fi
+
+      if contains "internet_connection_checker" "${SELECTED_PACKAGES[@]}"; then
+        internet_connection_checker
+      fi
+
+      if contains "internet_connection_checker_plus" "${SELECTED_PACKAGES[@]}"; then
+        internet_connection_checker_plus
       fi
 
       echo "✅ Templates generated successfully."
