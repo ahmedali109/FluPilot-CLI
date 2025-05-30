@@ -18,6 +18,7 @@ source ./scripts/templates/functions/flutterBloc.sh
 source ./scripts/templates/functions/http.sh
 source ./scripts/templates/functions/dio.sh
 source ./scripts/templates/functions/retrofit.sh
+source ./scripts/templates/functions/cached_network_image.sh
 
 if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
   if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for selected packages?"; then
@@ -99,6 +100,10 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
 
       if contains "retrofit" "${SELECTED_PACKAGES[@]}"; then
         retrofit
+      fi
+
+      if contains "cached_network_image" "${SELECTED_PACKAGES[@]}"; then
+        cached_network_image
       fi
 
       echo "✅ Templates generated successfully."
