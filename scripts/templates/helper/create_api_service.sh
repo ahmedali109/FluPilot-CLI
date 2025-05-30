@@ -15,20 +15,24 @@ abstract class ApiService {
   factory ApiService(Dio dio, {String baseUrl}) = _ApiService;
 
   @GET("/users")
-  Future<List<dynamic>> getUsers();
+  Future<List<Map<String , dynamic>>> getUsers();
 
   @GET("/users/{id}")
-  Future<dynamic> getUser(@Path("id") String id);
+  Future<Map<String , dynamic>> getUser(@Path("id") String id);
 
   @POST("/users")
-  Future<dynamic> createUser(@Body() Map<String, dynamic> user);
+  Future<Map<String , dynamic>> createUser(@Body() Map<String, dynamic> user);
 
   @PUT("/users/{id}")
-  Future<dynamic> updateUser(@Path("id") String id, @Body() Map<String, dynamic> user);
+  Future<Map<String , dynamic>> updateUser(
+    @Path("id") String id,
+    @Body() Map<String, dynamic> user,
+  );
 
   @DELETE("/users/{id}")
   Future<void> deleteUser(@Path("id") String id);
 }
+
 EOL
  echo "📄 Created api_service.dart file successfully at $API_SERVICE_FILE"
  echo "✅ Api service template generated successfully."

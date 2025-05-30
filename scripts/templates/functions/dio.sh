@@ -2,6 +2,7 @@
 
 source ./scripts/templates/helper/create_api_constants.sh
 source ./scripts/templates/helper/create_dio_factory.sh
+source ./scripts/templates/helper/create_api_error_handler.sh
 
 function dio(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -31,6 +32,7 @@ function dio(){
   echo "✅ dio found in pubspec.yaml."
   echo "📂 Creating api_constants.dart in $DEST_DIR/lib/core/networking..."
   echo "📂 Creating dio_factory.dart in $DEST_DIR/lib/core/networking..."
+  echo "📂 Creating api_error_handler.dart in $DEST_DIR/lib/core/networking..."
 
   touch "$DEST_DIR/lib/core/networking/api_constants.dart" || {
     echo "❌ Failed to create api_constants.dart"
@@ -42,9 +44,16 @@ function dio(){
     exit 1
   }
 
+  touch "$DEST_DIR/lib/core/networking/api_error_handler.dart" || {
+    echo "❌ Failed to create api_error_handler.dart"
+    exit 1
+  }
+
   create_api_constants
 
   create_dio_factory
+
+  create_api_error_handler
 
   # Navigate back to the original directory
   echo "🔙 Returning to the original directory..."

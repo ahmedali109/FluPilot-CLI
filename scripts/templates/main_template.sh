@@ -22,6 +22,8 @@ source ./scripts/templates/functions/cached_network_image.sh
 source ./scripts/templates/functions/connectivity_plus.sh
 source ./scripts/templates/functions/internet_connection_checker.sh
 source ./scripts/templates/functions/internet_connection_checker_plus.sh
+source ./scripts/templates/functions/json_serializable.sh
+source ./scripts/templates/functions/freezed.sh
 
 if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
   if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for selected packages?"; then
@@ -42,6 +44,8 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
       fi
 
       echo "🛠️ Generating templates for selected packages..."
+
+      should_run_build_runner=false
 
       if contains "flutter_launcher_icons" "${SELECTED_PACKAGES[@]}"; then
         app_icon_function
@@ -103,6 +107,7 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
 
       if contains "retrofit" "${SELECTED_PACKAGES[@]}"; then
         retrofit
+        should_run_build_runner=true
       fi
 
       if contains "cached_network_image" "${SELECTED_PACKAGES[@]}"; then
@@ -119,6 +124,33 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
 
       if contains "internet_connection_checker_plus" "${SELECTED_PACKAGES[@]}"; then
         internet_connection_checker_plus
+      fi
+
+      if contains "json_serializable" "${SELECTED_PACKAGES[@]}"; then
+        json_serializable
+        should_run_build_runner=true
+      fi
+
+      if contains "freezed" "${SELECTED_PACKAGES[@]}"; then
+        freezed
+        should_run_build_runner=true
+      fi
+
+      if [ "${should_run_build_runner:-false}" = true ]; then
+        DEST_DIR="${FLUTTER_PROJECT_DIR}"
+        if [ -z "$DEST_DIR" ]; then
+          echo "❌ FLUTTER_PROJECT_DIR is not set. Please set it to your Flutter project directory."
+          exit 1
+        fi
+        cd "$DEST_DIR" || exit 1
+        echo "🛠️ Running build_runner..."
+        dart run build_runner build --delete-conflicting-outputs
+        if [ $? -ne 0 ]; then
+          echo "❌ build_runner failed. Please check the output for errors."
+          exit 1
+        fi
+        echo "✅ build_runner completed successfully."
+        cd - >/dev/null || exit 1
       fi
 
       echo "✅ Templates generated successfully."
