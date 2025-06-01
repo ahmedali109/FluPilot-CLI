@@ -170,6 +170,17 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
       extensions
       spacing
 
+      if contains "firebase_core" "${SELECTED_PACKAGES[@]}"; then
+        if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧩 Run Firebase setup?"; then
+          source ./scripts/setup/setup_firebase.sh
+          if [ $? -ne 0 ]; then
+            echo "❌ Firebase setup failed. Please check the output for errors."
+            exit 1
+          fi
+          echo "✅ Firebase setup completed successfully."
+        fi
+      fi
+
       echo "✅ Templates generated successfully."
   fi
 else

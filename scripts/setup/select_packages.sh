@@ -15,6 +15,11 @@ IFS=$'\n' read -r -d '' -a SELECTED_CATEGORIES < <(
 )
 SELECTED_PACKAGES=()
 
+if [ ${#SELECTED_CATEGORIES[@]} -eq 0 ]; then
+  echo "❌ No categories selected. Exiting."
+  exit 1
+fi
+
 for CATEGORY in "${SELECTED_CATEGORIES[@]}"; do
   trap 'echo "\n❌ Selection cancelled by user."; exit 1' SIGINT
   case $CATEGORY in
@@ -166,8 +171,17 @@ for CATEGORY in "${SELECTED_CATEGORIES[@]}"; do
       )
       ;;
   esac
-  # Add selected packages to the final list
+  # # Add selected packages to the final list
   SELECTED_PACKAGES+=("${SELECTED[@]}")
 done
-echo "Selected packages: ${SELECTED_PACKAGES[*]}"
+
+if [ ${#SELECTED[@]} -eq 0 ]; then
+  echo "❌ No packages selected in the chosen categories. Exiting."
+  exit 1
+fi
+
+if [ ${#SELECTED_PACKAGES[@]} -ne 0 ]; then
+  echo "Selected packages: ${SELECTED_PACKAGES[*]}"
+fi
+
 export SELECTED_PACKAGES
