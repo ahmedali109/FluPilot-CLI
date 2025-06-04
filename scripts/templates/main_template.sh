@@ -29,6 +29,7 @@ source ./scripts/templates/functions/shared_preferences.sh
 source ./scripts/templates/gen/app_regex.sh
 source ./scripts/templates/gen/extensions.sh
 source ./scripts/templates/gen/spacing.sh
+source ./scripts/templates/functions/cloud_firestore.sh
 source ./scripts/templates/permission/ios/google_sign_in_permission.sh
 
 if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
@@ -178,6 +179,18 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
           echo "✅ Firebase Auth setup completed successfully."
         fi
       fi
+
+      if contains "cloud_firestore" "${SELECTED_PACKAGES[@]}"; then
+        if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧩 Run Cloud Firestore setup?"; then
+          cloud_firestore
+          if [ $? -ne 0 ]; then
+            echo "❌ Cloud Firestore setup failed. Please check the output for errors."
+            exit 1
+          fi
+          echo "✅ Cloud Firestore setup completed successfully."
+        fi
+      fi
+
 
       if contains "google_sign_in" "${SELECTED_PACKAGES[@]}"; then
           add_google_signin_ios_config
