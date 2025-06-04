@@ -29,6 +29,7 @@ source ./scripts/templates/functions/shared_preferences.sh
 source ./scripts/templates/gen/app_regex.sh
 source ./scripts/templates/gen/extensions.sh
 source ./scripts/templates/gen/spacing.sh
+source ./scripts/templates/permission/ios/google_sign_in_permission.sh
 
 if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
   if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for selected packages?"; then
@@ -141,23 +142,6 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
         should_run_build_runner=true
       fi
 
-      if [ "${should_run_build_runner:-false}" = true ]; then
-        DEST_DIR="${FLUTTER_PROJECT_DIR}"
-        if [ -z "$DEST_DIR" ]; then
-          echo "❌ FLUTTER_PROJECT_DIR is not set. Please set it to your Flutter project directory."
-          exit 1
-        fi
-        cd "$DEST_DIR" || exit 1
-        echo "🛠️ Running build_runner..."
-        dart run build_runner build --delete-conflicting-outputs
-        if [ $? -ne 0 ]; then
-          echo "❌ build_runner failed. Please check the output for errors."
-          exit 1
-        fi
-        echo "✅ build_runner completed successfully."
-        cd - >/dev/null || exit 1
-      fi
-
       if contains "get_it" "${SELECTED_PACKAGES[@]}"; then
         get_it
       fi
@@ -179,6 +163,41 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
           fi
           echo "✅ Firebase setup completed successfully."
         fi
+      fi
+
+      if contains "firebase_auth" "${SELECTED_PACKAGES[@]}"; then
+        if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧩 Run Firebase Auth setup?"; then
+          source ./scripts/templates/features/auth/create_auth_structure.sh
+
+          if [ $? -ne 0 ]; then
+            echo "❌ Firebase Auth setup failed. Please check the output for errors."
+            exit 1
+          fi
+          echo "🛠️ Running build_runner for Firebase Auth..."
+          should_run_build_runner=true
+          echo "✅ Firebase Auth setup completed successfully."
+        fi
+      fi
+
+      if contains "google_sign_in" "${SELECTED_PACKAGES[@]}"; then
+          add_google_signin_ios_config
+      fi
+
+      if [ "${should_run_build_runner:-false}" = true ]; then
+        DEST_DIR="${FLUTTER_PROJECT_DIR}"
+        if [ -z "$DEST_DIR" ]; then
+          echo "❌ FLUTTER_PROJECT_DIR is not set. Please set it to your Flutter project directory."
+          exit 1
+        fi
+        cd "$DEST_DIR" || exit 1
+        echo "🛠️ Running build_runner..."
+        dart run build_runner build --delete-conflicting-outputs
+        if [ $? -ne 0 ]; then
+          echo "❌ build_runner failed. Please check the output for errors."
+          exit 1
+        fi
+        echo "✅ build_runner completed successfully."
+        cd - >/dev/null || exit 1
       fi
 
       echo "✅ Templates generated successfully."
