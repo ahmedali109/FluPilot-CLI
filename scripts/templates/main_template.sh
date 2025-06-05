@@ -30,6 +30,7 @@ source ./scripts/templates/gen/app_regex.sh
 source ./scripts/templates/gen/extensions.sh
 source ./scripts/templates/gen/spacing.sh
 source ./scripts/templates/functions/cloud_firestore.sh
+source ./scripts/templates/functions/supabase_service.sh
 source ./scripts/templates/permission/ios/google_sign_in_permission.sh
 
 if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
@@ -194,6 +195,27 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
 
       if contains "google_sign_in" "${SELECTED_PACKAGES[@]}"; then
           add_google_signin_ios_config
+      fi
+
+      if contains "supabase_flutter" "${SELECTED_PACKAGES[@]}"; then
+        if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧩 Run Supabase setup?"; then
+
+            if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧩 Do you want to create a Supabase Authentication?"; then
+              source ./scripts/templates/features/auth/create_auth_structure.sh
+              echo "✅ Supabase Auth creation completed successfully."
+            else
+              echo "⚠️ Skipping Supabase Auth creation."
+            fi
+
+            if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧩 Do you want to create a Supabase Service (CRUD/Storage) ?"; then
+              supabase_service
+              echo "✅ Supabase Service (CRUD/Storage) creation completed successfully."
+            else
+              echo "⚠️ Skipping Supabase Service (CRUD/Storage) creation."
+            fi
+
+            echo "✅ Supabase setup completed successfully."
+         fi
       fi
 
       if [ "${should_run_build_runner:-false}" = true ]; then

@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# DEST_DIR="${FLUTTER_PROJECT_DIR}"
-# cd "$DEST_DIR" || exit 1
-
-# Base directory
 BASE_DIR="$FLUTTER_PROJECT_DIR/lib/features/auth"
 
 if [ -z "$BASE_DIR" ]; then
@@ -22,7 +18,17 @@ mkdir -p $BASE_DIR/ui/widgets
 # Create Dart files
 touch $BASE_DIR/data/models/app_user.dart
 touch $BASE_DIR/data/repo/auth_repo.dart
-touch $BASE_DIR/data/repo/firebase_auth_repo.dart
+
+if grep -q "firebase_auth:" "$FLUTTER_PROJECT_DIR/pubspec.yaml"; then
+  touch $BASE_DIR/data/repo/firebase_auth_repo.dart
+  source ./scripts/templates/features/auth/data/repo/firebase_auth_repo.sh
+fi
+
+if grep -q "supabase_flutter:" "$FLUTTER_PROJECT_DIR/pubspec.yaml"; then
+  touch $BASE_DIR/data/repo/supabase_auth_repo.dart
+  source ./scripts/templates/features/auth/data/repo/supabase_auth_repo.sh
+fi
+
 
 touch $BASE_DIR/logic/auth/auth_cubit.dart
 touch $BASE_DIR/logic/auth/auth_state.dart
@@ -50,7 +56,6 @@ touch $BASE_DIR/ui/register_page.dart
 
 source ./scripts/templates/features/auth/data/models/app_user.sh
 source ./scripts/templates/features/auth/data/repo/auth_repo.sh
-source ./scripts/templates/features/auth/data/repo/firebase_auth_repo.sh
 
 source ./scripts/templates/features/auth/logic/auth/auth_cubit.sh
 source ./scripts/templates/features/auth/logic/auth/auth_state.sh

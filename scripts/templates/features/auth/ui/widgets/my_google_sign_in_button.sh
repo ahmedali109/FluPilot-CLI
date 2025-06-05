@@ -7,7 +7,11 @@ if [ ! -d "$FLUTTER_PROJECT_DIR/assets/images" ]; then
   echo "❌ assets/images directory does not exist"
   echo "Creating it now..."
   mkdir -p "$FLUTTER_PROJECT_DIR/assets/images"
+  mkdir -p "$FLUTTER_PROJECT_DIR/assets/icons"
   echo "✅ Created assets directory successfully."
+  # Add Assets directory to pubspec.yaml
+  source ./scripts/templates/helper/add_assets_yaml.sh
+  echo "✅ Added assets directory to pubspec.yaml"
 fi
 
 cp "./scripts/templates/assets/images/google.png" "${FLUTTER_PROJECT_DIR}/assets/images/"
