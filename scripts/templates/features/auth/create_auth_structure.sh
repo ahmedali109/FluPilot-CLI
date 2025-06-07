@@ -47,10 +47,18 @@ touch $BASE_DIR/ui/widgets/password_validations.dart
 touch $BASE_DIR/ui/widgets/register_button.dart
 touch $BASE_DIR/ui/widgets/register_now_row.dart
 touch $BASE_DIR/ui/widgets/social_login_row.dart
+touch $BASE_DIR/ui/widgets/forgot_password_content.dart
+touch $BASE_DIR/ui/widgets/forgot_password_email_form.dart
+touch $BASE_DIR/ui/widgets/forgot_password_header.dart
+touch $BASE_DIR/ui/widgets/forgot_password_icon.dart
+touch $BASE_DIR/ui/widgets/forgot_password_success_state.dart
+touch $BASE_DIR/ui/widgets/forgot_password_title.dart
+touch $BASE_DIR/ui/widgets/reset_link_button.dart
 
 touch $BASE_DIR/ui/login_or_register.dart
 touch $BASE_DIR/ui/login_page.dart
 touch $BASE_DIR/ui/register_page.dart
+touch $BASE_DIR/ui/forgot_password_page.dart
 
 # Fill Dart files with boilerplate code
 
@@ -74,10 +82,18 @@ source ./scripts/templates/features/auth/ui/widgets/password_field.sh
 source ./scripts/templates/features/auth/ui/widgets/register_button.sh
 source ./scripts/templates/features/auth/ui/widgets/register_now_row.sh
 source ./scripts/templates/features/auth/ui/widgets/social_login_row.sh
+source ./scripts/templates/features/auth/ui/widgets/forgot_password_content.sh
+source ./scripts/templates/features/auth/ui/widgets/forgot_password_email_form.sh
+source ./scripts/templates/features/auth/ui/widgets/forgot_password_header.sh
+source ./scripts/templates/features/auth/ui/widgets/forgot_password_icon.sh
+source ./scripts/templates/features/auth/ui/widgets/forgot_password_success_state.sh
+source ./scripts/templates/features/auth/ui/widgets/forgot_password_title.sh
+source ./scripts/templates/features/auth/ui/widgets/reset_link_button.sh
 
 source ./scripts/templates/features/auth/ui/login_or_register.sh
 source ./scripts/templates/features/auth/ui/login_page.sh
 source ./scripts/templates/features/auth/ui/register_page.sh
+source ./scripts/templates/features/auth/ui/forgot_password.sh
 
 # Print success message
 echo "✅ Auth module structure created successfully!"
