@@ -171,17 +171,21 @@ for CATEGORY in "${SELECTED_CATEGORIES[@]}"; do
       )
       ;;
   esac
-  # # Add selected packages to the final list
-  SELECTED_PACKAGES+=("${SELECTED[@]}")
+
+  # Handle empty selection gracefully - just inform and continue
+  if [ ${#SELECTED[@]} -eq 0 ]; then
+    echo "ℹ️  No packages selected for category: $CATEGORY (continuing...)"
+  else
+    # Add selected packages to the final list
+    SELECTED_PACKAGES+=("${SELECTED[@]}")
+  fi
 done
 
-if [ ${#SELECTED[@]} -eq 0 ]; then
-  echo "❌ No packages selected in the chosen categories. Exiting."
-  exit 1
-fi
-
-if [ ${#SELECTED_PACKAGES[@]} -ne 0 ]; then
-  echo "Selected packages: ${SELECTED_PACKAGES[*]}"
+# Final check - only show message if we have packages, otherwise inform gracefully
+if [ ${#SELECTED_PACKAGES[@]} -eq 0 ]; then
+  echo "ℹ️  No packages were selected from any category. Continuing with empty selection."
+else
+  echo "✅ Selected packages: ${SELECTED_PACKAGES[*]}"
 fi
 
 export SELECTED_PACKAGES

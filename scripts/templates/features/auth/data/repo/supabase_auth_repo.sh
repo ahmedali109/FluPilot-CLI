@@ -5,7 +5,7 @@ SUPABASE_AUTH_REPO_FILE="$DEST_DIR/supabase_auth_repo.dart"
 cat <<EOL > "$SUPABASE_AUTH_REPO_FILE"
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-import '../../../../core/constants/strings.dart';
+import '../../../../core/constants/app_strings.dart';
 import '../models/app_user.dart';
 import 'auth_repo.dart';
 
@@ -58,7 +58,7 @@ class SupabaseAuthRepo implements AuthRepo {
       await _supabase.auth.resetPasswordForEmail(email);
       return "Password reset email sent successfully. Check your inbox.";
     } catch (e) {
-      return "An error occurred while sending password reset email: $e";
+      return "An error occurred while sending password reset email: \$e";
     }
   }
 
