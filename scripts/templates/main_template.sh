@@ -32,6 +32,7 @@ source ./scripts/templates/gen/spacing.sh
 source ./scripts/templates/functions/cloud_firestore.sh
 source ./scripts/templates/functions/supabase_service.sh
 source ./scripts/templates/functions/easy_localization.sh
+source ./scripts/templates/functions/flutter_local_notifications.sh
 source ./scripts/templates/permission/ios/google_sign_in_permission.sh
 
 if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
@@ -221,6 +222,10 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
 
       if contains "easy_localization" "${SELECTED_PACKAGES[@]}"; then
           easy_localization
+      fi
+
+      if contains "flutter_local_notifications" "${SELECTED_PACKAGES[@]}"; then
+          flutter_local_notifications
       fi
 
       if [ "${should_run_build_runner:-false}" = true ]; then
