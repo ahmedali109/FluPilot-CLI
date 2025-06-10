@@ -29,6 +29,8 @@ source ./scripts/templates/functions/shared_preferences.sh
 source ./scripts/templates/gen/app_regex.sh
 source ./scripts/templates/gen/extensions.sh
 source ./scripts/templates/gen/spacing.sh
+source ./scripts/templates/gen/app_strings.sh
+source ./scripts/templates/gen/theme.sh
 source ./scripts/templates/functions/cloud_firestore.sh
 source ./scripts/templates/functions/supabase_service.sh
 source ./scripts/templates/functions/local_auth.sh
@@ -158,6 +160,8 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
       appRegex
       extensions
       spacing
+      appStrings
+      themeConfigure
 
       if contains "firebase_core" "${SELECTED_PACKAGES[@]}"; then
         if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧩 Run Firebase setup?"; then
