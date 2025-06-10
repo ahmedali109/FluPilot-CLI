@@ -1,8 +1,9 @@
 #!/bin/bash
 source ./scripts/templates/helper/create_easy_localization_structure.sh
+source ./scripts/templates/permission/ios/easy_localization_permission.sh
 
 function easy_localization(){
-   DEST_DIR="${FLUTTER_PROJECT_DIR}"
+  DEST_DIR="${FLUTTER_PROJECT_DIR}"
 
   if [ -z "$DEST_DIR" ]; then
     echo "❌ FLUTTER_PROJECT_DIR is not set. Please set it to your Flutter project directory."
@@ -76,6 +77,8 @@ function easy_localization(){
   echo "✅ Created localization files for: en, ar, de, fr, es, it, ja, ko, zh"
 
   create_easy_localization_structure
+
+  add_easy_localization_ios_permission
 
   # Navigate back to the original directory
   echo "🔙 Returning to the original directory..."
