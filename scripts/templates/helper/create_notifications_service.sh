@@ -8,7 +8,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 
 class NotificationService {
   static final _notificationPlugin = FlutterLocalNotificationsPlugin();
-  static bool _initialized = false; // Removed 'final' keyword
+  static bool _initialized = false;
   static int _badgeCounter = 0;
 
   bool get isInitialized => _initialized;
