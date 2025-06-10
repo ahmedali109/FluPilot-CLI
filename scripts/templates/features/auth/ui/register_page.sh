@@ -9,7 +9,6 @@ function registerPageLocalization(){
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:easy_localization/easy_localization.dart';
-
 import '../logic/auth/auth_cubit.dart';
 import '../logic/auth/auth_state.dart';
 import 'widgets/confirm_password_field.dart';
@@ -57,14 +56,19 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bottomPadding = MediaQuery.of(context).viewInsets.bottom;
+    final isKeyboardVisible = bottomPadding > 0;
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).unfocus(); // Dismiss the keyboard
+        FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         body: SafeArea(
-          child: Center(
+          child: SingleChildScrollView(
+            physics: isKeyboardVisible
+                ? const NeverScrollableScrollPhysics()
+                : const BouncingScrollPhysics(),
+            reverse: true,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Form(
@@ -72,11 +76,10 @@ class RegisterPage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.lock_open,
-                      size: 80,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
+                    if (!isKeyboardVisible)...[
+                      SizedBox(height: 80),
+                      Icon(Icons.lock_open, size: 80, color: Colors.white),
+                    ],
                     const SizedBox(height: 25),
                     Text(
                       "create_account_message".tr(),
@@ -127,7 +130,6 @@ function registerPageWithoutLocalization(){
     cat <<EOL > "$REGISTER_FILE"
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
 import '../logic/auth/auth_cubit.dart';
 import '../logic/auth/auth_state.dart';
 import 'widgets/confirm_password_field.dart';
@@ -175,14 +177,19 @@ class RegisterPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final bottomPadding = MediaQuery.of(context).viewInsets.bottom;
+    final isKeyboardVisible = bottomPadding > 0;
     return GestureDetector(
       onTap: () {
-        FocusScope.of(context).unfocus(); // Dismiss the keyboard
+        FocusScope.of(context).unfocus();
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
         body: SafeArea(
-          child: Center(
+          child: SingleChildScrollView(
+            physics: isKeyboardVisible
+                ? const NeverScrollableScrollPhysics()
+                : const BouncingScrollPhysics(),
+            reverse: true,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 25),
               child: Form(
@@ -190,11 +197,10 @@ class RegisterPage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(
-                      Icons.lock_open,
-                      size: 80,
-                      color: Theme.of(context).colorScheme.primary,
-                    ),
+                    if (!isKeyboardVisible)...[
+                      SizedBox(height: 80),
+                      Icon(Icons.lock_open, size: 80, color: Colors.white),
+                    ],
                     const SizedBox(height: 25),
                     Text(
                       "Let's Create an account for you",

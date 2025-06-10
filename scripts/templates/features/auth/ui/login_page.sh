@@ -8,7 +8,7 @@ function loginPageLocalization(){
   cat <<EOL > "$LOGIN_FILE"
 import 'package:flutter/material.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'forgot_password.dart';
+import 'forgot_password_page.dart';
 import 'widgets/email_field.dart';
 import 'widgets/forget_password_button.dart';
 import 'widgets/my_textfield.dart';
@@ -151,7 +151,7 @@ function loginPageWithoutLocalization(){
   cat <<EOL > "$LOGIN_FILE"
 import 'package:flutter/material.dart';
 import 'widgets/email_field.dart';
-import 'forgot_password.dart';
+import 'forgot_password_page.dart';
 import 'widgets/forget_password_button.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
