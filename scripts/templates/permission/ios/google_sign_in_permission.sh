@@ -53,23 +53,105 @@ function add_google_signin_ios_config() {
     REVERSED_CLIENT_ID=$(gum input --placeholder "Enter your REVERSED_CLIENT_ID")
   fi
 
-  # Insert configuration(s)
-  TMP_PLIST="${PLIST_FILE}.tmp"
-  CONFIG=""
+  # Create temporary file for configuration
+  TMP_CONFIG=$(mktemp)
+
+  # Build configuration with proper indentation (2 tabs for main keys, 3 tabs for nested)
   if [[ " ${AUTH_PACKAGES[*]} " == *"firebase_auth"* ]]; then
-    CONFIG+="  <!-- Google Sign-in Section (Firebase Auth) -->\n  <key>GIDServerClientID</key>\n  <string>$IOS_CLIENT_ID</string>\n  <!-- End of the Google Sign-in Section (Firebase Auth) -->\n"
-  fi
-  # Only insert CFBundleURLTypes once, with a comment if both are present
-  if [[ " ${AUTH_PACKAGES[*]} " == *"firebase_auth"* ]] && [[ " ${AUTH_PACKAGES[*]} " == *"supabase_flutter"* ]]; then
-    CONFIG+="  <!-- Google Sign-in URL Scheme (Used by Firebase Auth & Supabase) -->\n  <key>CFBundleURLTypes</key>\n  <array>\n    <dict>\n      <key>CFBundleTypeRole</key>\n      <string>Editor</string>\n      <key>CFBundleURLSchemes</key>\n      <array>\n        <string>$REVERSED_CLIENT_ID</string>\n      </array>\n    </dict>\n  </array>\n  <!-- End of Google Sign-in URL Scheme -->\n"
-  elif [[ " ${AUTH_PACKAGES[*]} " == *"firebase_auth"* ]]; then
-    CONFIG+="  <!-- Google Sign-in URL Scheme (Firebase Auth) -->\n  <key>CFBundleURLTypes</key>\n  <array>\n    <dict>\n      <key>CFBundleTypeRole</key>\n      <string>Editor</string>\n      <key>CFBundleURLSchemes</key>\n      <array>\n        <string>$REVERSED_CLIENT_ID</string>\n      </array>\n    </dict>\n  </array>\n  <!-- End of Google Sign-in URL Scheme (Firebase Auth) -->\n"
-  elif [[ " ${AUTH_PACKAGES[*]} " == *"supabase_flutter"* ]]; then
-    CONFIG+="  <!-- Google Sign-in URL Scheme (Supabase) -->\n  <key>CFBundleURLTypes</key>\n  <array>\n    <dict>\n      <key>CFBundleTypeRole</key>\n      <string>Editor</string>\n      <key>CFBundleURLSchemes</key>\n      <array>\n        <string>$REVERSED_CLIENT_ID</string>\n      </array>\n    </dict>\n  </array>\n  <!-- End of Google Sign-in URL Scheme (Supabase) -->\n"
+    cat >> "$TMP_CONFIG" << EOF
+		<!-- Google Sign-in Section (Firebase Auth) -->
+		<key>GIDServerClientID</key>
+		<string>$IOS_CLIENT_ID</string>
+		<!-- End of the Google Sign-in Section (Firebase Auth) -->
+EOF
   fi
 
-  # Insert before the last </dict> (which is followed by </plist>)
-  awk -v config="$CONFIG" '/<\/dict>/ { dict_line = $0; next } /<\/plist>/ { print config dict_line; print; next } { if (dict_line) { print dict_line; dict_line = "" } print }' "$PLIST_FILE" > "$TMP_PLIST" && mv "$TMP_PLIST" "$PLIST_FILE"
+  # Add CFBundleURLTypes section
+  if [[ " ${AUTH_PACKAGES[*]} " == *"firebase_auth"* ]] && [[ " ${AUTH_PACKAGES[*]} " == *"supabase_flutter"* ]]; then
+    cat >> "$TMP_CONFIG" << EOF
+		<!-- Google Sign-in URL Scheme (Used by Firebase Auth & Supabase) -->
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>$REVERSED_CLIENT_ID</string>
+				</array>
+			</dict>
+		</array>
+		<!-- End of Google Sign-in URL Scheme -->
+EOF
+  elif [[ " ${AUTH_PACKAGES[*]} " == *"firebase_auth"* ]]; then
+    cat >> "$TMP_CONFIG" << EOF
+		<!-- Google Sign-in URL Scheme (Firebase Auth) -->
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>$REVERSED_CLIENT_ID</string>
+				</array>
+			</dict>
+		</array>
+		<!-- End of Google Sign-in URL Scheme (Firebase Auth) -->
+EOF
+  elif [[ " ${AUTH_PACKAGES[*]} " == *"supabase_flutter"* ]]; then
+    cat >> "$TMP_CONFIG" << EOF
+		<!-- Google Sign-in URL Scheme (Supabase) -->
+		<key>CFBundleURLTypes</key>
+		<array>
+			<dict>
+				<key>CFBundleTypeRole</key>
+				<string>Editor</string>
+				<key>CFBundleURLSchemes</key>
+				<array>
+					<string>$REVERSED_CLIENT_ID</string>
+				</array>
+			</dict>
+		</array>
+		<!-- End of Google Sign-in URL Scheme (Supabase) -->
+EOF
+  fi
+
+  # Insert configuration before the last </dict> (which is followed by </plist>)
+  TMP_PLIST="${PLIST_FILE}.tmp"
+
+  # Use awk to insert the configuration at the right place
+  awk '
+  BEGIN {
+    # Read the configuration file
+    while ((getline line < "'$TMP_CONFIG'") > 0) {
+      config = config line "\n"
+    }
+    close("'$TMP_CONFIG'")
+  }
+  /<\/dict>$/ && !found_last_dict {
+    # Check if next line is </plist>
+    next_line_num = NR + 1
+    if ((getline next_line) > 0) {
+      if (next_line ~ /<\/plist>/) {
+        # This is the last </dict> before </plist>
+        print config $0
+        print next_line
+        found_last_dict = 1
+        next
+      } else {
+        # Not the last </dict>, print current line and put back next_line
+        print $0
+        print next_line
+        next
+      }
+    }
+  }
+  { print }
+  ' "$PLIST_FILE" > "$TMP_PLIST" && mv "$TMP_PLIST" "$PLIST_FILE"
+
+  # Clean up temporary file
+  rm -f "$TMP_CONFIG"
 
   echo "✅ Successfully updated Info.plist with Google Sign-In config for: ${AUTH_PACKAGES[*]}"
   echo "📂 Updated Info.plist at $PLIST_FILE"
