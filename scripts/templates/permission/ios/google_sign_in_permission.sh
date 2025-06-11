@@ -68,10 +68,12 @@ function add_google_signin_ios_config() {
     CONFIG+="  <!-- Google Sign-in URL Scheme (Supabase) -->\n  <key>CFBundleURLTypes</key>\n  <array>\n    <dict>\n      <key>CFBundleTypeRole</key>\n      <string>Editor</string>\n      <key>CFBundleURLSchemes</key>\n      <array>\n        <string>$REVERSED_CLIENT_ID</string>\n      </array>\n    </dict>\n  </array>\n  <!-- End of Google Sign-in URL Scheme (Supabase) -->\n"
   fi
 
-  awk -v config="$CONFIG" '/<\/dict>/ && !x { print config; x=1 } { print }' "$PLIST_FILE" > "$TMP_PLIST" && mv "$TMP_PLIST" "$PLIST_FILE"
+  # Insert before the last </dict> (which is followed by </plist>)
+  awk -v config="$CONFIG" '/<\/dict>/ { dict_line = $0; next } /<\/plist>/ { print config dict_line; print; next } { if (dict_line) { print dict_line; dict_line = "" } print }' "$PLIST_FILE" > "$TMP_PLIST" && mv "$TMP_PLIST" "$PLIST_FILE"
 
   echo "✅ Successfully updated Info.plist with Google Sign-In config for: ${AUTH_PACKAGES[*]}"
   echo "📂 Updated Info.plist at $PLIST_FILE"
+
   # Navigate back to the original directory
   echo "🔙 Returning to the original directory..."
   echo
