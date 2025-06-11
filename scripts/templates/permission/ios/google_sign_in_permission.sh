@@ -60,7 +60,7 @@ function add_google_signin_ios_config() {
   if [[ " ${AUTH_PACKAGES[*]} " == *"firebase_auth"* ]]; then
     cat >> "$TMP_CONFIG" << EOF
 		<!-- Google Sign-in Section (Firebase Auth) -->
-		<key>GIDServerClientID</key>
+		<key>GIDClientID</key>
 		<string>$IOS_CLIENT_ID</string>
 		<!-- End of the Google Sign-in Section (Firebase Auth) -->
 EOF
