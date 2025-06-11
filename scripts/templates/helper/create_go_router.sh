@@ -6,11 +6,8 @@ function create_go_router(){
  WRAPPER_FILE="$DEST_DIR/wrapper.dart"
   cat <<EOL > "$GO_ROUTER_FILE"
 import 'package:flutter/material.dart';
-import 'package:flutter_application/router/wrapper.dart';
-import 'package:flutter_application/view/home.dart';
-import 'package:flutter_application/view/sub_home.dart';
-import 'package:flutter_application/view/player.dart';
 import 'package:go_router/go_router.dart';
+import 'wrapper.dart';
 
 class AppNavigation {
   AppNavigation._();
@@ -57,19 +54,18 @@ class AppNavigation {
               GoRoute(
                 path: AppNavigation.home,
                 name: "Home",
-                builder: (BuildContext context, GoRouterState state) =>
-                    const HomePage(),
+                // builder: (BuildContext context, GoRouterState state) => const HomePage(),
                 routes: [
                   GoRoute(
                     path: AppNavigation.subHome,
                     name: 'subHome',
-                    pageBuilder: (context, state) => CustomTransitionPage<void>(
-                      key: state.pageKey,
-                      child: const SubHomePage(),
-                      transitionsBuilder:
-                          (context, animation, secondaryAnimation, child) =>
-                              FadeTransition(opacity: animation, child: child),
-                    ),
+                    // pageBuilder: (context, state) => CustomTransitionPage<void>(
+                    //   key: state.pageKey,
+                    //   child: const SubHomePage(),
+                    //   transitionsBuilder:
+                    //       (context, animation, secondaryAnimation, child) =>
+                    //           FadeTransition(opacity: animation, child: child),
+                    // ),
                   ),
                 ],
               ),
@@ -77,13 +73,12 @@ class AppNavigation {
           ),
         ],
       ),
-
       /// Player
       GoRoute(
         parentNavigatorKey: _rootNavigatorKey,
         path: AppNavigation.player,
         name: "Player",
-        builder: (context, state) => PlayerPage(key: state.pageKey),
+        // builder: (context, state) => PlayerPage(key: state.pageKey),
       ),
     ],
   );
@@ -93,6 +88,8 @@ EOL
   cat <<EOL > "$WRAPPER_FILE"
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+
+import '../widgets/google_navbar.dart';
 
 class MainWrapper extends StatefulWidget {
   const MainWrapper({required this.navigationShell, super.key});
@@ -122,20 +119,16 @@ class _MainWrapperState extends State<MainWrapper> {
         backgroundColor: Colors.deepPurpleAccent,
         child: const Icon(Icons.play_arrow),
       ),
-
-      // Add your bottom navigation bar here
-      // Example of usage with a custom bottom navigation bar:
-
-      // bottomNavigationBar: BottomNavigationBar(
-      //   selectedIndex: selectedIndex,
-      //   onTabChange: (index) {
-      //     setState(() {
-      //       selectedIndex = index;
-      //     });
-      //     _goBranch(index);
-      //   },
-      // ),
-
+      // Define your bottom navigation bar here
+      bottomNavigationBar: GoogleNavBar(
+        selectedIndex: selectedIndex,
+        onTabChange: (index) {
+          setState(() {
+            selectedIndex = index;
+          });
+          _goBranch(index);
+        },
+      ),
     );
   }
 }
