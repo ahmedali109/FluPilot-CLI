@@ -1,6 +1,7 @@
 #!/bin/bash
 
 source ./scripts/templates/helper/create_notifications_service.sh
+source ./scripts/templates/permission/android/notifications_permission.sh
 
 function flutter_local_notifications(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -56,6 +57,9 @@ function flutter_local_notifications(){
       }' "$APP_DELEGATE_FILE"
 
   echo "✅ AppDelegate.swift has been successfully updated."
+
+  # Add permissions to AndroidManifest.xml
+  add_flutter_local_notifications_permissions
 
   # Navigate back to the original directory
   echo "🔙 Returning to the original directory..."

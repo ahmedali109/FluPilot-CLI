@@ -5,6 +5,7 @@ function create_notifications_service(){
  NOTIFICATIONS_SERVICE_FILE="$DEST_DIR/notifications_service.dart"
   cat <<EOL > "$NOTIFICATIONS_SERVICE_FILE"
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import 'dart:io' show Platform;
 
 class NotificationService {
   static final _notificationPlugin = FlutterLocalNotificationsPlugin();
@@ -21,18 +22,28 @@ class NotificationService {
 
     const DarwinInitializationSettings initializationSettingsIOS =
         DarwinInitializationSettings(
-      requestAlertPermission: true,
-      requestBadgePermission: true,
-      requestSoundPermission: true,
-    );
+          requestAlertPermission: true,
+          requestBadgePermission: true,
+          requestSoundPermission: true,
+        );
 
     const InitializationSettings initializationSettings =
         InitializationSettings(
-      android: initializationSettingsAndroid,
-      iOS: initializationSettingsIOS,
-    );
+          android: initializationSettingsAndroid,
+          iOS: initializationSettingsIOS,
+        );
 
     await _notificationPlugin.initialize(initializationSettings);
+
+    // Request permissions for Android 13+
+    if (Platform.isAndroid) {
+      await _notificationPlugin
+          .resolvePlatformSpecificImplementation<
+            AndroidFlutterLocalNotificationsPlugin
+          >()
+          ?.requestNotificationsPermission();
+    }
+
     _initialized = true; // Set to true after successful initialization
   }
 
@@ -61,30 +72,30 @@ class NotificationService {
 
   static Future<void> resetBadge() async {
     _badgeCounter = 0;
-    await _notificationPlugin.show(
-      0,
-      null,
-      null,
-      NotificationDetails(
-        iOS: DarwinNotificationDetails(
-          badgeNumber: 0,
-          presentAlert: false,
-          presentSound: false,
-          presentBadge: true,
-        ),
-      ),
-    );
+    if(Platform.isIOS){
+      await _notificationPlugin.show(
+          0,
+          null,
+          null,
+          NotificationDetails(
+            iOS: DarwinNotificationDetails(
+              badgeNumber: 0,
+              presentAlert: false,
+              presentSound: false,
+              presentBadge: true,
+            ),
+          ),
+        );
+    }
     await _notificationPlugin.cancelAll();
   }
 
-  static Future<void> showNotification(
-      {int id = 0, String? title, String? body}) async {
-    await _notificationPlugin.show(
-      id,
-      title,
-      body,
-      _notificationDetails(),
-    );
+  static Future<void> showNotification({
+    int id = 0,
+    String? title,
+    String? body,
+  }) async {
+    await _notificationPlugin.show(id, title, body, _notificationDetails());
   }
 }
 EOL
