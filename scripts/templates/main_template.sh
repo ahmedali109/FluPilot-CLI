@@ -54,6 +54,26 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
 
       if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Adding Projects Assets?"; then
       assets_function
+      else
+        echo "⚠️ Creating Assets Directory"
+        mkdir -p "$FLUTTER_PROJECT_DIR/assets/images"
+        mkdir -p "$FLUTTER_PROJECT_DIR/assets/icons"
+        # check if flutter launcher icons is selected
+        if contains "flutter_launcher_icons" "${SELECTED_PACKAGES[@]}"; then
+          cp "./scripts/templates/assets/images/app-icon.png" "${FLUTTER_PROJECT_DIR}/assets/images/"
+          cp "./scripts/templates/assets/images/app-icon-android.png" "${FLUTTER_PROJECT_DIR}/assets/images/"
+          cp "./scripts/templates/assets/images/app-icon-foreground.png" "${FLUTTER_PROJECT_DIR}/assets/images/"
+          cp "./scripts/templates/assets/images/app-icon-background.png" "${FLUTTER_PROJECT_DIR}/assets/images/"
+          echo "🛠️ Assets for flutter_launcher_icons added."
+        fi
+        # check if flutter native splash is selected
+        if contains "flutter_native_splash" "${SELECTED_PACKAGES[@]}"; then
+          cp "./scripts/templates/assets/images/splash_background_image_light.png" "${FLUTTER_PROJECT_DIR}/assets/images/"
+          cp "./scripts/templates/assets/images/splash_background_image_dark.png" "${FLUTTER_PROJECT_DIR}/assets/images/"
+          cp "./scripts/templates/assets/images/android_12_splash_background_image_light.png" "${FLUTTER_PROJECT_DIR}/assets/images/"
+          cp "./scripts/templates/assets/images/android_12_splash_splash_background_image_dark.png" "${FLUTTER_PROJECT_DIR}/assets/images/"
+          echo "🛠️ Assets for flutter_native_splash added."
+        fi
       fi
 
       echo "🛠️ Generating templates for selected packages..."
