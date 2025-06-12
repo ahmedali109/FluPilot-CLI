@@ -3,6 +3,15 @@
 function create_api_error_handler(){
  DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/networking"
  API_ERROR_HANDLER_FILE="$DEST_DIR/api_error_handler.dart"
+  # Check if pubspec.yaml contains dio dependency
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "dio:" "$PUBSPEC_FILE"; then
+    echo "Adding dio dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add dio && flutter pub get)
+    echo "✅ dio dependency added to pubspec.yaml."
+  else
+    echo "dio dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$API_ERROR_HANDLER_FILE"
 import 'package:dio/dio.dart';
 

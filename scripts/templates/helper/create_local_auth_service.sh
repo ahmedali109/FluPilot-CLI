@@ -3,6 +3,15 @@
 function create_local_auth_service(){
  DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/services"
  LOCAL_AUTH_SERVICE_FILE="$DEST_DIR/local_auth_service.dart"
+  # check if local_auth dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "local_auth:" "$PUBSPEC_FILE"; then
+    echo "Adding local_auth dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add local_auth && flutter pub get)
+    echo "✅ local_auth dependency added to pubspec.yaml."
+  else
+    echo "local_auth dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$LOCAL_AUTH_SERVICE_FILE"
 import 'package:flutter/material.dart';
 import 'package:local_auth/local_auth.dart';

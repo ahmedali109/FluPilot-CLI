@@ -3,6 +3,15 @@
 function create_notifications_service(){
  DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/services"
  NOTIFICATIONS_SERVICE_FILE="$DEST_DIR/notifications_service.dart"
+  # check if flutter_local_notifications dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "flutter_local_notifications:" "$PUBSPEC_FILE"; then
+    echo "Adding flutter_local_notifications dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add flutter_local_notifications && flutter pub get)
+    echo "✅ flutter_local_notifications dependency added to pubspec.yaml."
+  else
+    echo "flutter_local_notifications dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$NOTIFICATIONS_SERVICE_FILE"
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'dart:io' show Platform;

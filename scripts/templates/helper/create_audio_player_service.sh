@@ -3,6 +3,15 @@
 function create_audio_player_service(){
 DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/widgets"
   AUDIO_PLAYER_SERVICE_FILE="$DEST_DIR/audio_player_service.dart"
+  # check if audio_players dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "audioplayers:" "$PUBSPEC_FILE"; then
+    echo "Adding audioplayers dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add audioplayers && flutter pub get)
+    echo "✅ audioplayers dependency added to pubspec.yaml."
+  else
+    echo "audioplayers dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$AUDIO_PLAYER_SERVICE_FILE"
 import 'package:audioplayers/audioplayers.dart';
 

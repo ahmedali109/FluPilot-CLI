@@ -3,6 +3,15 @@
 function create_custom_pull_to_refresh(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/widgets"
   PULL_TO_REFRESH_FILE="$DEST_DIR/custom_pull_to_refresh.dart"
+  # check if liquid_pull_to_refresh dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "liquid_pull_to_refresh:" "$PUBSPEC_FILE"; then
+    echo "Adding liquid_pull_to_refresh dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add liquid_pull_to_refresh && flutter pub get)
+    echo "✅ liquid_pull_to_refresh dependency added to pubspec.yaml."
+  else
+    echo "liquid_pull_to_refresh dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$PULL_TO_REFRESH_FILE"
 import 'package:flutter/material.dart';
 import 'package:liquid_pull_to_refresh/liquid_pull_to_refresh.dart';

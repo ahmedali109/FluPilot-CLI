@@ -4,6 +4,15 @@ function create_go_router(){
  DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/router"
  GO_ROUTER_FILE="$DEST_DIR/go_router.dart"
  WRAPPER_FILE="$DEST_DIR/wrapper.dart"
+  # check if go_router dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "go_router:" "$PUBSPEC_FILE"; then
+    echo "Adding go_router dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add go_router && flutter pub get)
+    echo "✅ go_router dependency added to pubspec.yaml."
+  else
+    echo "go_router dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$GO_ROUTER_FILE"
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';

@@ -3,6 +3,22 @@
 function create_dio_factory(){
  DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/networking"
  DIO_FACTORY_FILE="$DEST_DIR/dio_factory.dart"
+  # check if dio and pretty_dio_logger dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "dio:" "$PUBSPEC_FILE"; then
+    echo "Adding dio dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add dio && flutter pub get)
+    echo "✅ dio dependency added to pubspec.yaml."
+  else
+    echo "dio dependency already exists in pubspec.yaml."
+  fi
+  if ! grep -q "pretty_dio_logger:" "$PUBSPEC_FILE"; then
+    echo "Adding pretty_dio_logger dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add pretty_dio_logger && flutter pub get)
+    echo "✅ pretty_dio_logger dependency added to pubspec.yaml."
+  else
+    echo "pretty_dio_logger dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$DIO_FACTORY_FILE"
 import 'package:dio/dio.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';

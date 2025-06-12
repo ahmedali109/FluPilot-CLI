@@ -3,6 +3,22 @@
 function onBoarding_Screen(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/features/onboarding"
   ONBOARDING_FILE="$DEST_DIR/onboarding_screen.dart"
+  # check if introduction_screen and shared_preferences dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "introduction_screen:" "$PUBSPEC_FILE"; then
+    echo "Adding introduction_screen dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add introduction_screen && flutter pub get)
+    echo "✅ introduction_screen dependency added to pubspec.yaml."
+  else
+    echo "introduction_screen dependency already exists in pubspec.yaml."
+  fi
+  if ! grep -q "shared_preferences:" "$PUBSPEC_FILE"; then
+    echo "Adding shared_preferences dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add shared_preferences && flutter pub get)
+    echo "✅ shared_preferences dependency added to pubspec.yaml."
+  else
+    echo "shared_preferences dependency already exists in pubspec.yaml."
+  fi
 
   cat <<EOL > "$ONBOARDING_FILE"
 import 'package:flutter/material.dart';

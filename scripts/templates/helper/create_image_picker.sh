@@ -3,6 +3,15 @@
 function create_image_picker(){
  DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/widgets"
   IMAGE_PICKER_FILE="$DEST_DIR/image_picker.dart"
+  # check if image_picker dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "image_picker:" "$PUBSPEC_FILE"; then
+    echo "Adding image_picker dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add image_picker && flutter pub get)
+    echo "✅ image_picker dependency added to pubspec.yaml."
+  else
+    echo "image_picker dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$IMAGE_PICKER_FILE"
 import 'dart:io';
 import 'package:image_picker/image_picker.dart';

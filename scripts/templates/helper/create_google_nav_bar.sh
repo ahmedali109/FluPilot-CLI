@@ -3,6 +3,15 @@
 function create_google_nav_bar(){
    DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/widgets"
   GOOGLE_NAV_BAR_FILE="$DEST_DIR/google_navbar.dart"
+  # check if google_nav_bar dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "google_nav_bar:" "$PUBSPEC_FILE"; then
+    echo "Adding google_nav_bar dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add google_nav_bar && flutter pub get)
+    echo "✅ google_nav_bar dependency added to pubspec.yaml."
+  else
+    echo "google_nav_bar dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$GOOGLE_NAV_BAR_FILE"
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';

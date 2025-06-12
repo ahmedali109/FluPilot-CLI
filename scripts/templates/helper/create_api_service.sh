@@ -3,6 +3,29 @@
 function create_api_service(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/networking"
   API_SERVICE_FILE="$DEST_DIR/api_service.dart"
+  # Check if pubspec.yaml contains dio and retrofit and build_runner dependencies
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "dio:" "$PUBSPEC_FILE"; then
+    echo "Adding dio dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add dio && flutter pub get)
+    echo "✅ dio dependency added to pubspec.yaml."
+  else
+    echo "dio dependency already exists in pubspec.yaml."
+  fi
+  if ! grep -q "retrofit:" "$PUBSPEC_FILE"; then
+    echo "Adding retrofit dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add retrofit && flutter pub get)
+    echo "✅ retrofit dependency added to pubspec.yaml."
+  else
+    echo "retrofit dependency already exists in pubspec.yaml."
+  fi
+  if ! grep -q "build_runner:" "$PUBSPEC_FILE"; then
+    echo "Adding build_runner dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add build_runner && flutter pub get)
+    echo "✅ build_runner dependency added to pubspec.yaml."
+  else
+    echo "build_runner dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$API_SERVICE_FILE"
 import 'package:dio/dio.dart';
 import 'package:retrofit/retrofit.dart';

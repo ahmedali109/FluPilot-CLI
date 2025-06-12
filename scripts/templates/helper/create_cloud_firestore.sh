@@ -3,6 +3,15 @@
 function create_cloud_firestore(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/services"
   FIRESTORE_SERVICE_FILE="$DEST_DIR/firestore_service.dart"
+   # check if cloud_firestore dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "cloud_firestore:" "$PUBSPEC_FILE"; then
+    echo "Adding cloud_firestore dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add cloud_firestore && flutter pub get)
+    echo "✅ cloud_firestore dependency added to pubspec.yaml."
+  else
+    echo "cloud_firestore dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$FIRESTORE_SERVICE_FILE"
 import 'package:cloud_firestore/cloud_firestore.dart';
 

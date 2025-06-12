@@ -3,6 +3,15 @@
 function create_supabase_service(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/services"
   SUPABASE_SERVICE_FILE="$DEST_DIR/supabase_service.dart"
+  # check if supabase_flutter dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "supabase_flutter:" "$PUBSPEC_FILE"; then
+    echo "Adding supabase_flutter dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add supabase_flutter && flutter pub get)
+    echo "✅ supabase_flutter dependency added to pubspec.yaml."
+  else
+    echo "supabase_flutter dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$SUPABASE_SERVICE_FILE"
 import 'dart:io';
 import 'package:flutter/material.dart';

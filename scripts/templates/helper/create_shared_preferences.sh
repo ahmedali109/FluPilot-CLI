@@ -3,6 +3,15 @@
 function create_shared_preferences(){
  DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/helpers"
  SHARED_PREFS_FILE="$DEST_DIR/shared_pref_helper.dart"
+  # check if shared_preferences dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "shared_preferences:" "$PUBSPEC_FILE"; then
+    echo "Adding shared_preferences dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add shared_preferences && flutter pub get)
+    echo "✅ shared_preferences dependency added to pubspec.yaml."
+  else
+    echo "shared_preferences dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$SHARED_PREFS_FILE"
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';

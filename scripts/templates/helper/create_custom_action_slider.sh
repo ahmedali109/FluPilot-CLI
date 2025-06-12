@@ -3,6 +3,15 @@
 function create_custom_action_slider(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/widgets"
   ACTION_SLIDER_FILE="$DEST_DIR/custom_action_slider.dart"
+   # check if action_slider dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "action_slider:" "$PUBSPEC_FILE"; then
+    echo "Adding action_slider dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add action_slider && flutter pub get)
+    echo "✅ action_slider dependency added to pubspec.yaml."
+  else
+    echo "action_slider dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$ACTION_SLIDER_FILE"
 import 'package:action_slider/action_slider.dart';
 import 'package:flutter/material.dart';

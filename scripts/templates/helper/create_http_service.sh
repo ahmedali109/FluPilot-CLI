@@ -3,6 +3,15 @@
 function create_http_service() {
   DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/networking"
   HTTP_SERVICE_FILE="$DEST_DIR/http_service.dart"
+  # check if http dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "http:" "$PUBSPEC_FILE"; then
+    echo "Adding http dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add http && flutter pub get)
+    echo "✅ http dependency added to pubspec.yaml."
+  else
+    echo "http dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$HTTP_SERVICE_FILE"
 import 'dart:convert';
 import 'package:http/http.dart' as http;

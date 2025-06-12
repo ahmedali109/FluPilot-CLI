@@ -3,6 +3,15 @@
 function create_video_player_service(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/widgets"
   VIDEO_PLAYER_SERVICE_FILE="$DEST_DIR/video_player_service.dart"
+  # check if video_player dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "video_player:" "$PUBSPEC_FILE"; then
+    echo "Adding video_player dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add video_player && flutter pub get)
+    echo "✅ video_player dependency added to pubspec.yaml."
+  else
+    echo "video_player dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$VIDEO_PLAYER_SERVICE_FILE"
 import 'package:flutter/material.dart';
 import 'package:video_player/video_player.dart';
