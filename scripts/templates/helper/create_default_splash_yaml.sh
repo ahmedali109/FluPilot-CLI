@@ -23,20 +23,20 @@ flutter_native_splash:
   # splash screen to a png image.  This is useful for gradients. The image will be stretch to the
   # size of the app. Only one parameter can be used, color and background_image cannot both be set.
 
-  # background_image: assets/images/splash_background_image_light.png
-  # background_image_dark: assets/images/splash_background_image_dark.png
-  image: assets/images/splash_background_image_light.png
-  image_dark: assets/images/splash_background_image_dark.png
-  color: "#F1EFE7"
-  color_dark: "#0F1629"
+  # image: assets/images/splash_background_image_light.png
+  # image_dark: assets/images/splash_background_image_dark.png
+  background_image: assets/images/splash_background_image_light.png
+  background_image_dark: assets/images/splash_background_image_dark.png
+  # color: "#F1EFE7"
+  # color_dark: "#0F1629"
   # branding: assets/images/splash_branding_light_theme.png
   # branding_dark: assets/images/splash_branding_dark_theme.png
 
   android_12:
     image: assets/images/android_12_splash_background_image_light.png
     image_dark: assets/images/android_12_splash_splash_background_image_dark.png
-    color: "#F1EFE7"
-    color_dark: "#0F1629"
+    color: '#F1EFE7'
+    color_dark: '#212121'
     # branding: assets/images/splash_branding_light_theme.png
     # branding_dark: assets/images/splash_branding_dark_theme.png
 EOL
