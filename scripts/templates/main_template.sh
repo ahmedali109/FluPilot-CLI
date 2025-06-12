@@ -74,6 +74,9 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
           cp "./scripts/templates/assets/images/android_12_splash_splash_background_image_dark.png" "${FLUTTER_PROJECT_DIR}/assets/images/"
           echo "🛠️ Assets for flutter_native_splash added."
         fi
+        # Add Assets into pubspec.yaml
+        echo "🛠️ Adding assets to pubspec.yaml..."
+        source ./scripts/templates/helper/add_assets_yaml.sh
       fi
 
       echo "🛠️ Generating templates for selected packages..."
