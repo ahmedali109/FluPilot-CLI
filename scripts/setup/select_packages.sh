@@ -15,6 +15,11 @@ IFS=$'\n' read -r -d '' -a SELECTED_CATEGORIES < <(
 )
 SELECTED_PACKAGES=()
 
+if [ ${#SELECTED_CATEGORIES[@]} -eq 0 ]; then
+  echo "❌ No categories selected. Exiting."
+  exit 1
+fi
+
 for CATEGORY in "${SELECTED_CATEGORIES[@]}"; do
   trap 'echo "\n❌ Selection cancelled by user."; exit 1' SIGINT
   case $CATEGORY in
@@ -166,8 +171,21 @@ for CATEGORY in "${SELECTED_CATEGORIES[@]}"; do
       )
       ;;
   esac
-  # Add selected packages to the final list
-  SELECTED_PACKAGES+=("${SELECTED[@]}")
+
+  # Handle empty selection gracefully - just inform and continue
+  if [ ${#SELECTED[@]} -eq 0 ]; then
+    echo "ℹ️  No packages selected for category: $CATEGORY (continuing...)"
+  else
+    # Add selected packages to the final list
+    SELECTED_PACKAGES+=("${SELECTED[@]}")
+  fi
 done
-echo "Selected packages: ${SELECTED_PACKAGES[*]}"
+
+# Final check - only show message if we have packages, otherwise inform gracefully
+if [ ${#SELECTED_PACKAGES[@]} -eq 0 ]; then
+  echo "ℹ️  No packages were selected from any category. Continuing with empty selection."
+else
+  echo "✅ Selected packages: ${SELECTED_PACKAGES[*]}"
+fi
+
 export SELECTED_PACKAGES

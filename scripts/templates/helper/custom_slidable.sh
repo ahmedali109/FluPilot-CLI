@@ -3,6 +3,15 @@
 function CustomSlidable(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/widgets"
   SLIDABLE_FILE="$DEST_DIR/custom_slidable.dart"
+  # check if flutter_slidable dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "flutter_slidable:" "$PUBSPEC_FILE"; then
+    echo "Adding flutter_slidable dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add flutter_slidable && flutter pub get)
+    echo "✅ flutter_slidable dependency added to pubspec.yaml."
+  else
+    echo "flutter_slidable dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$SLIDABLE_FILE"
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
