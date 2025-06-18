@@ -6,7 +6,7 @@
     "flupilot-cli": "./scripts/helper/check_and_install_deps.sh"
   },
   "files": [
-    "./scripts/main.sh"
+    "scripts/"
   ],
   "repository": {
     "type": "git",

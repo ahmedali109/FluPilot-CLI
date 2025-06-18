@@ -10,9 +10,6 @@ function print_and_run_if_deps_installed() {
   exit 0
 }
 
-#Available flags
-source ./scripts/helper/cli_flags_function.sh
-
 # Get the absolute path to the real script location, resolving symlinks
 SOURCE="${BASH_SOURCE[0]}"
 while [ -h "$SOURCE" ]; do
@@ -21,6 +18,9 @@ while [ -h "$SOURCE" ]; do
   [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
 done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/.." && pwd)"
+
+#Available flags
+source "$SCRIPT_DIR/helper/cli_flags_function.sh"
 
 missing_deps=()
 
