@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function create_api_constants(){
  DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/networking"

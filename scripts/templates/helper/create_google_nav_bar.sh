@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function create_google_nav_bar(){
    DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/widgets"

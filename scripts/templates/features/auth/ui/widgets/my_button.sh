@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 DEST_DIR="$FLUTTER_PROJECT_DIR/lib/features/auth/ui/widgets"
 BUTTON_FILE="$DEST_DIR/my_button.dart"

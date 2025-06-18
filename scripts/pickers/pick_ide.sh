@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 source ./scripts/utils/styles/gum_select_style.sh
 

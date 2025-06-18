@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 source ./scripts/templates/helper/create_local_auth_service.sh
 source ./scripts/templates/permission/android/local_auth_permission.sh

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function onBoarding_Screen(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/features/onboarding"

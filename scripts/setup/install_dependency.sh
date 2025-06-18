@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Cross-platform dependency installer for gum, flutter, python3
 set -euo pipefail
 

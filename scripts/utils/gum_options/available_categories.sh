@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 source ./scripts/utils/constant/gum_options_strings.sh
 

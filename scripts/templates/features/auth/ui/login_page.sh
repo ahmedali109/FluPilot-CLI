@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 DEST_DIR="$FLUTTER_PROJECT_DIR/lib/features/auth/ui"
 LOGIN_FILE="$DEST_DIR/login_page.dart"

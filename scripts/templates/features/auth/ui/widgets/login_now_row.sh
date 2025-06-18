@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 DEST_DIR="$FLUTTER_PROJECT_DIR/lib/features/auth/ui/widgets"
 LOGIN_NOW_ROW_FILE="$DEST_DIR/login_now_row.dart"

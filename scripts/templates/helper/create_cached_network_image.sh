@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function create_cached_network_image(){
  DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/helpers"

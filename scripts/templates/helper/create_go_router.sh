@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function create_go_router(){
  DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/router"

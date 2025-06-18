@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function create_local_auth_service(){
  DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/services"

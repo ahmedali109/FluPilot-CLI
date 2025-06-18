@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function add_image_picker_ios_permission() {
   DEST_DIR="${FLUTTER_PROJECT_DIR}"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 if [ -n "$FLUTTER_PROJECT_DIR" ]; then
   cd "$FLUTTER_PROJECT_DIR" || { echo "❌ Failed to enter project directory"; exit 1; }

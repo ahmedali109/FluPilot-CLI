@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 source ./scripts/templates/helper/create_video_player_service.sh
 source ./scripts/templates/permission/android/video_player_permission.sh

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Cross-platform helper to generate a default flutter_launcher_icons.yaml in the Flutter project directory
 
 function create_default_icon_yaml() {

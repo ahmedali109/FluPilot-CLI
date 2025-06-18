@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 DEST_DIR="$FLUTTER_PROJECT_DIR/lib/features/auth/ui/widgets"
 FORGOT_PASSWORD_SUCCESS_STATE_FILE="$DEST_DIR/forgot_password_success_state.dart"

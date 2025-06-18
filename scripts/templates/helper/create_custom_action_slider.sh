@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function create_custom_action_slider(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/widgets"

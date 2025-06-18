@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 # Dependency-aware script to manage assets in pubspec.yaml
 PUBSPEC_FILE="$FLUTTER_PROJECT_DIR/pubspec.yaml"
 

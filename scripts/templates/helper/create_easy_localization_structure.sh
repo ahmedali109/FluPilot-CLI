@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function create_easy_localization_structure(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}/assets/l10n"

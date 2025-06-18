@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 BASE_DIR="$FLUTTER_PROJECT_DIR/lib/features/auth"
 

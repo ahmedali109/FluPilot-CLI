@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function create_api_service(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/networking"

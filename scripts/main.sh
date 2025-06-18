@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 #Show ASCII BANNER
 source ./scripts/setup/ascii_banner.sh

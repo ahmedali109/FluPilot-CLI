@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 source ./scripts/templates/helper/create_audio_player_service.sh
 
@@ -30,7 +30,7 @@ function audioPlayers(){
   }
 
   create_audio_player_service
-  
+
   # Navigate back to the original directory
   echo "🔙 Returning to the original directory..."
   echo

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 source ./scripts/templates/helper/create_easy_localization_structure.sh
 source ./scripts/templates/permission/ios/easy_localization_permission.sh
 

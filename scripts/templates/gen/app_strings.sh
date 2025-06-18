@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function appStrings(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"

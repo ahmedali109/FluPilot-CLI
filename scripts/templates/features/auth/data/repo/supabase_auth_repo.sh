@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 DEST_DIR="$FLUTTER_PROJECT_DIR/lib/features/auth/data/repo"
 SUPABASE_AUTH_REPO_FILE="$DEST_DIR/supabase_auth_repo.dart"

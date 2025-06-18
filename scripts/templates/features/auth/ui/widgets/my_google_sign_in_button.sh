@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 DEST_DIR="$FLUTTER_PROJECT_DIR/lib/features/auth/ui/widgets"
 GOOGLE_SIGN_IN_BUTTON_FILE="$DEST_DIR/my_google_sign_in_button.dart"

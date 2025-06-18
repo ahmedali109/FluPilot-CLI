@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function pick_dir_windows(){
   local start_dir="${1:-$HOME}"

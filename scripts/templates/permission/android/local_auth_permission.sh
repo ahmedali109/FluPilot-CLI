@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function add_local_auth_Android_permission(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"

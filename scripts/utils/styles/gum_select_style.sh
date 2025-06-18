@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 GUM_SELECTED_STYLE=(
   --cursor-prefix "👉 "

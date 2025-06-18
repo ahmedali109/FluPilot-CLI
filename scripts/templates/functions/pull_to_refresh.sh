@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 source ./scripts/templates/helper/create_custom_pull_to_refresh.sh
 function pullToRefresh(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"

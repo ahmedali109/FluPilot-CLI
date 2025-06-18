@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 GUM_CONFIRM_STYLE=(
   --affirmative="YES"

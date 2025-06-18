@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 source ./scripts/templates/helper/create_notifications_service.sh
 source ./scripts/templates/permission/android/notifications_permission.sh

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 DEST_DIR="$FLUTTER_PROJECT_DIR/lib/features/auth/ui/widgets"
 RESET_LINK_BUTTON_FILE="$DEST_DIR/reset_link_button.dart"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function create_custom_pull_to_refresh(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/widgets"

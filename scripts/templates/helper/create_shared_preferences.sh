@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function create_shared_preferences(){
  DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/helpers"

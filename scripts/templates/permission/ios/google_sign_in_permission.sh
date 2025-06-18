@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function add_google_signin_ios_config() {
   DEST_DIR="${FLUTTER_PROJECT_DIR}"

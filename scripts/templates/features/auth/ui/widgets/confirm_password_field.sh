@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 DEST_DIR="$FLUTTER_PROJECT_DIR/lib/features/auth/ui/widgets"
 CONFIRM_PASSWORD_FIELD_FILE="$DEST_DIR/confirm_password_field.dart"

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 source ./scripts/templates/helper/create_image_picker.sh
 source ./scripts/templates/permission/ios/image_picker_permission.sh

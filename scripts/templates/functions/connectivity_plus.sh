@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function connectivity_plus(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"

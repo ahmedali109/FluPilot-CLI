@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 DEST_DIR="$FLUTTER_PROJECT_DIR/lib/features/auth/data/repo"
 FIREBASE_AUTH_REPO_FILE="$DEST_DIR/firebase_auth_repo.dart"

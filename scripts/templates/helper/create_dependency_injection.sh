@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function create_dependency_injection(){
  DEST_DIR="${FLUTTER_PROJECT_DIR}/lib/core/di"

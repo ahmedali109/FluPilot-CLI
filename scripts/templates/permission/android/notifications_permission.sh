@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function add_flutter_local_notifications_permissions(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"

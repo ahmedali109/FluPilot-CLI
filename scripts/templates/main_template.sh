@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Generate Templates
 source ./scripts/utils/styles/gum_choose_style.sh

@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function add_video_player_service_Android_permission(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"

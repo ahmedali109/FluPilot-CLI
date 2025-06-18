@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 source ./scripts/templates/helper/create_api_constants.sh
 source ./scripts/templates/helper/create_dio_factory.sh
