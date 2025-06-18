@@ -10,10 +10,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ahmedali109/FluPilot-CLI.git"
+    "url": "git://github.com/ahmedali109/FluPilot-CLI.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Ahmed Ali (https://github.com/ahmedali109)",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/ahmedali109/FluPilot-CLI/issues"
