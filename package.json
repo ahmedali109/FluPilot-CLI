@@ -12,7 +12,16 @@
     "type": "git",
     "url": "git://github.com/ahmedali109/FluPilot-CLI.git"
   },
-  "keywords": [],
+  "keywords": [
+    "flutter",
+    "cli",
+    "scaffold",
+    "boilerplate",
+    "flutter-cli",
+    "flutter-projects",
+    "flutter-packages",
+    "flutter-setup"
+  ],
   "author": "Ahmed Ali (https://github.com/ahmedali109)",
   "license": "ISC",
   "bugs": {
