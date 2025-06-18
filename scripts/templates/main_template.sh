@@ -52,7 +52,7 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
         return 1
       }
 
-      if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Adding Projects Assets?"; then
+      if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Adding your own Projects Assets?"; then
       assets_function
       else
         echo "⚠️ Creating Assets Directory"
