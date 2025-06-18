@@ -1,42 +1,51 @@
 #!/usr/bin/env bash
 
+# Get the absolute path to the real script location, resolving symlinks
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../.." && pwd)"
+
 # Generate Templates
-source ./scripts/utils/styles/gum_choose_style.sh
-source ./scripts/templates/functions/assets_function.sh
-source ./scripts/templates/functions/app_icon_function.sh
-source ./scripts/templates/functions/splash_function.sh
-source ./scripts/templates/functions/onBoarding_function.sh
-source ./scripts/templates/functions/slidable_function.sh
-source ./scripts/templates/functions/pull_to_refresh.sh
-source ./scripts/templates/functions/actionSlider.sh
-source ./scripts/templates/functions/googleNavBar.sh
-source ./scripts/templates/functions/imagePicker.sh
-source ./scripts/templates/functions/audioPlayers.sh
-source ./scripts/templates/functions/videoPlayers.sh
-source ./scripts/templates/functions/goRouter.sh
-source ./scripts/templates/functions/flutterBloc.sh
-source ./scripts/templates/functions/http.sh
-source ./scripts/templates/functions/dio.sh
-source ./scripts/templates/functions/retrofit.sh
-source ./scripts/templates/functions/cached_network_image.sh
-source ./scripts/templates/functions/connectivity_plus.sh
-source ./scripts/templates/functions/internet_connection_checker.sh
-source ./scripts/templates/functions/internet_connection_checker_plus.sh
-source ./scripts/templates/functions/json_serializable.sh
-source ./scripts/templates/functions/freezed.sh
-source ./scripts/templates/functions/get_it.sh
-source ./scripts/templates/functions/shared_preferences.sh
-source ./scripts/templates/gen/app_regex.sh
-source ./scripts/templates/gen/extensions.sh
-source ./scripts/templates/gen/spacing.sh
-source ./scripts/templates/gen/app_strings.sh
-source ./scripts/templates/gen/theme.sh
-source ./scripts/templates/functions/cloud_firestore.sh
-source ./scripts/templates/functions/supabase_service.sh
-source ./scripts/templates/functions/local_auth.sh
-source ./scripts/templates/functions/easy_localization.sh
-source ./scripts/templates/functions/flutter_local_notifications.sh
-source ./scripts/templates/permission/ios/google_sign_in_permission.sh
+source "$SCRIPT_DIR/utils/styles/gum_choose_style.sh"
+source "$SCRIPT_DIR/templates/functions/assets_function.sh"
+source "$SCRIPT_DIR/templates/functions/app_icon_function.sh"
+source "$SCRIPT_DIR/templates/functions/splash_function.sh"
+source "$SCRIPT_DIR/templates/functions/onBoarding_function.sh"
+source "$SCRIPT_DIR/templates/functions/slidable_function.sh"
+source "$SCRIPT_DIR/templates/functions/pull_to_refresh.sh"
+source "$SCRIPT_DIR/templates/functions/actionSlider.sh"
+source "$SCRIPT_DIR/templates/functions/googleNavBar.sh"
+source "$SCRIPT_DIR/templates/functions/imagePicker.sh"
+source "$SCRIPT_DIR/templates/functions/audioPlayers.sh"
+source "$SCRIPT_DIR/templates/functions/videoPlayers.sh"
+source "$SCRIPT_DIR/templates/functions/goRouter.sh"
+source "$SCRIPT_DIR/templates/functions/flutterBloc.sh"
+source "$SCRIPT_DIR/templates/functions/http.sh"
+source "$SCRIPT_DIR/templates/functions/dio.sh"
+source "$SCRIPT_DIR/templates/functions/retrofit.sh"
+source "$SCRIPT_DIR/templates/functions/cached_network_image.sh"
+source "$SCRIPT_DIR/templates/functions/connectivity_plus.sh"
+source "$SCRIPT_DIR/templates/functions/internet_connection_checker.sh"
+source "$SCRIPT_DIR/templates/functions/internet_connection_checker_plus.sh"
+source "$SCRIPT_DIR/templates/functions/json_serializable.sh"
+source "$SCRIPT_DIR/templates/functions/freezed.sh"
+source "$SCRIPT_DIR/templates/functions/get_it.sh"
+source "$SCRIPT_DIR/templates/functions/shared_preferences.sh"
+source "$SCRIPT_DIR/templates/gen/app_regex.sh"
+source "$SCRIPT_DIR/templates/gen/extensions.sh"
+source "$SCRIPT_DIR/templates/gen/spacing.sh"
+source "$SCRIPT_DIR/templates/gen/app_strings.sh"
+source "$SCRIPT_DIR/templates/gen/theme.sh"
+source "$SCRIPT_DIR/templates/functions/cloud_firestore.sh"
+source "$SCRIPT_DIR/templates/functions/supabase_service.sh"
+source "$SCRIPT_DIR/templates/functions/local_auth.sh"
+source "$SCRIPT_DIR/templates/functions/easy_localization.sh"
+source "$SCRIPT_DIR/templates/functions/flutter_local_notifications.sh"
+source "$SCRIPT_DIR/templates/permission/ios/google_sign_in_permission.sh"
 
 if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
   if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧰 Generate basic templates for selected packages?"; then
@@ -76,7 +85,7 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
         fi
         # Add Assets into pubspec.yaml
         echo "🛠️ Adding assets to pubspec.yaml..."
-        source ./scripts/templates/helper/add_assets_yaml.sh
+        source "$SCRIPT_DIR/templates/helper/add_assets_yaml.sh"
       fi
 
       echo "🛠️ Generating templates for selected packages..."
@@ -188,7 +197,7 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
 
       if contains "firebase_core" "${SELECTED_PACKAGES[@]}"; then
         if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧩 Run Firebase setup?"; then
-          source ./scripts/setup/setup_firebase.sh
+          source "$SCRIPT_DIR/setup/setup_firebase.sh"
           if [ $? -ne 0 ]; then
             echo "❌ Firebase setup failed. Please check the output for errors."
             exit 1
@@ -199,7 +208,7 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
 
       if contains "firebase_auth" "${SELECTED_PACKAGES[@]}"; then
         if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧩 Run Firebase Auth setup?"; then
-          source ./scripts/templates/features/auth/create_auth_structure.sh
+          source "$SCRIPT_DIR/templates/features/auth/create_auth_structure.sh"
 
           if [ $? -ne 0 ]; then
             echo "❌ Firebase Auth setup failed. Please check the output for errors."
@@ -231,7 +240,7 @@ if [ "${#SELECTED_PACKAGES[@]}" -ne 0 ]; then
         if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧩 Run Supabase setup?"; then
 
             if gum confirm "${GUM_CONFIRM_STYLE[@]}" "🧩 Do you want to create a Supabase Authentication?"; then
-              source ./scripts/templates/features/auth/create_auth_structure.sh
+              source "$SCRIPT_DIR/templates/features/auth/create_auth_structure.sh"
               echo "✅ Supabase Auth creation completed successfully."
             else
               echo "⚠️ Skipping Supabase Auth creation."

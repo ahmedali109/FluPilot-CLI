@@ -1,5 +1,14 @@
 #!/usr/bin/env bash
 
+# Get the absolute path to the real script location, resolving symlinks
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../../.." && pwd)"
+
 BASE_DIR="$FLUTTER_PROJECT_DIR/lib/features/auth"
 
 if [ -z "$BASE_DIR" ]; then
@@ -21,12 +30,12 @@ touch $BASE_DIR/data/repo/auth_repo.dart
 
 if grep -q "firebase_auth:" "$FLUTTER_PROJECT_DIR/pubspec.yaml"; then
   touch $BASE_DIR/data/repo/firebase_auth_repo.dart
-  source ./scripts/templates/features/auth/data/repo/firebase_auth_repo.sh
+  source "$SCRIPT_DIR/templates/features/auth/data/repo/firebase_auth_repo.sh"
 fi
 
 if grep -q "supabase_flutter:" "$FLUTTER_PROJECT_DIR/pubspec.yaml"; then
   touch $BASE_DIR/data/repo/supabase_auth_repo.dart
-  source ./scripts/templates/features/auth/data/repo/supabase_auth_repo.sh
+  source "$SCRIPT_DIR/templates/features/auth/data/repo/supabase_auth_repo.sh"
 fi
 
 
@@ -62,38 +71,38 @@ touch $BASE_DIR/ui/forgot_password_page.dart
 
 # Fill Dart files with boilerplate code
 
-source ./scripts/templates/features/auth/data/models/app_user.sh
-source ./scripts/templates/features/auth/data/repo/auth_repo.sh
+source "$SCRIPT_DIR/templates/features/auth/data/models/app_user.sh"
+source "$SCRIPT_DIR/templates/features/auth/data/repo/auth_repo.sh"
 
-source ./scripts/templates/features/auth/logic/auth/auth_cubit.sh
-source ./scripts/templates/features/auth/logic/auth/auth_state.sh
+source "$SCRIPT_DIR/templates/features/auth/logic/auth/auth_cubit.sh"
+source "$SCRIPT_DIR/templates/features/auth/logic/auth/auth_state.sh"
 
-source ./scripts/templates/features/auth/ui/widgets/confirm_password_field.sh
-source ./scripts/templates/features/auth/ui/widgets/email_field.sh
-source ./scripts/templates/features/auth/ui/widgets/forget_password_button.sh
-source ./scripts/templates/features/auth/ui/widgets/login_now_row.sh
-source ./scripts/templates/features/auth/ui/widgets/my_apple_sign_in_button.sh
-source ./scripts/templates/features/auth/ui/widgets/my_button.sh
-source ./scripts/templates/features/auth/ui/widgets/my_google_sign_in_button.sh
-source ./scripts/templates/features/auth/ui/widgets/my_textfield.sh
-source ./scripts/templates/features/auth/ui/widgets/password_validations.sh
-source ./scripts/templates/features/auth/ui/widgets/name_field.sh
-source ./scripts/templates/features/auth/ui/widgets/password_field.sh
-source ./scripts/templates/features/auth/ui/widgets/register_button.sh
-source ./scripts/templates/features/auth/ui/widgets/register_now_row.sh
-source ./scripts/templates/features/auth/ui/widgets/social_login_row.sh
-source ./scripts/templates/features/auth/ui/widgets/forgot_password_content.sh
-source ./scripts/templates/features/auth/ui/widgets/forgot_password_email_form.sh
-source ./scripts/templates/features/auth/ui/widgets/forgot_password_header.sh
-source ./scripts/templates/features/auth/ui/widgets/forgot_password_icon.sh
-source ./scripts/templates/features/auth/ui/widgets/forgot_password_success_state.sh
-source ./scripts/templates/features/auth/ui/widgets/forgot_password_title.sh
-source ./scripts/templates/features/auth/ui/widgets/reset_link_button.sh
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/confirm_password_field.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/email_field.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/forget_password_button.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/login_now_row.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/my_apple_sign_in_button.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/my_button.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/my_google_sign_in_button.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/my_textfield.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/password_validations.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/name_field.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/password_field.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/register_button.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/register_now_row.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/social_login_row.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/forgot_password_content.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/forgot_password_email_form.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/forgot_password_header.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/forgot_password_icon.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/forgot_password_success_state.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/forgot_password_title.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/widgets/reset_link_button.sh"
 
-source ./scripts/templates/features/auth/ui/login_or_register.sh
-source ./scripts/templates/features/auth/ui/login_page.sh
-source ./scripts/templates/features/auth/ui/register_page.sh
-source ./scripts/templates/features/auth/ui/forgot_password.sh
+source "$SCRIPT_DIR/templates/features/auth/ui/login_or_register.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/login_page.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/register_page.sh"
+source "$SCRIPT_DIR/templates/features/auth/ui/forgot_password.sh"
 
 # Print success message
 echo "✅ Auth module structure created successfully!"

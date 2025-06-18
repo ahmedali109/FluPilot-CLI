@@ -1,9 +1,18 @@
 #!/usr/bin/env bash
 
-source ./scripts/utils/styles/gum_select_style.sh
-source ./scripts/utils/constant/gum_options_strings.sh
-source ./scripts/utils/gum_options/available_categories.sh
-source ./scripts/utils/gum_options/available_packages.sh
+# Get the absolute path to the real script location, resolving symlinks
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/.." && pwd)"
+
+source "$SCRIPT_DIR/utils/styles/gum_select_style.sh"
+source "$SCRIPT_DIR/utils/constant/gum_options_strings.sh"
+source "$SCRIPT_DIR/utils/gum_options/available_categories.sh"
+source "$SCRIPT_DIR/utils/gum_options/available_packages.sh"
 
 trap 'echo "\n❌ Selection cancelled by user."; exit 1' SIGINT
 

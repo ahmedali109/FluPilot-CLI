@@ -1,7 +1,16 @@
 #!/usr/bin/env bash
 
-source ./scripts/templates/helper/create_image_picker.sh
-source ./scripts/templates/permission/ios/image_picker_permission.sh
+# Get the absolute path to the real script location, resolving symlinks
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
+
+source "$SCRIPT_DIR/templates/helper/create_image_picker.sh"
+source "$SCRIPT_DIR/templates/permission/ios/image_picker_permission.sh"
 
 function imagePicker(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"

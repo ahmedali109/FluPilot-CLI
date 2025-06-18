@@ -10,7 +10,15 @@ if [ ! -d "$FLUTTER_PROJECT_DIR/assets/images" ]; then
   mkdir -p "$FLUTTER_PROJECT_DIR/assets/icons"
   echo "✅ Created assets directory successfully."
   # Add Assets directory to pubspec.yaml
-  source ./scripts/templates/helper/add_assets_yaml.sh
+  # Get the absolute path to the real script location, resolving symlinks
+  SOURCE="${BASH_SOURCE[0]}"
+  while [ -h "$SOURCE" ]; do
+    DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+    SOURCE="$(readlink "$SOURCE")"
+    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+  done
+  SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../../../../.." && pwd)"
+  source "$SCRIPT_DIR/templates/helper/add_assets_yaml.sh"
   echo "✅ Added assets directory to pubspec.yaml"
 fi
 

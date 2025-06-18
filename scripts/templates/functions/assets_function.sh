@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
 
-source ./scripts/pickers/pick_image.sh
+# Get the absolute path to the real script location, resolving symlinks
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
+
+
+source "$SCRIPT_DIR/pickers/pick_image.sh
 
 function assets_function(){
 
@@ -33,7 +43,7 @@ function assets_function(){
   echo "✅ Successfully copied images to ${DEST_DIR}/icons/"
   echo "📝 Updating pubspec.yaml to include assets..."
 
-  source ./scripts/templates/helper/add_assets_yaml.sh
+  source "$SCRIPT_DIR/templates/helper/add_assets_yaml.sh
 
   if [[ $? -ne 0 ]]; then
     echo "❌ Failed to update pubspec.yaml"

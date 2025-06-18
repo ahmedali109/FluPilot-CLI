@@ -1,6 +1,16 @@
 #!/usr/bin/env bash
-source ./scripts/templates/helper/create_easy_localization_structure.sh
-source ./scripts/templates/permission/ios/easy_localization_permission.sh
+
+# Get the absolute path to the real script location, resolving symlinks
+SOURCE="${BASH_SOURCE[0]}"
+while [ -h "$SOURCE" ]; do
+  DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+  SOURCE="$(readlink "$SOURCE")"
+  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+done
+SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
+
+source "$SCRIPT_DIR/templates/helper/create_easy_localization_structure.sh
+source "$SCRIPT_DIR/templates/permission/ios/easy_localization_permission.sh
 
 function easy_localization(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"

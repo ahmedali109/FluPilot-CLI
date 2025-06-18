@@ -556,7 +556,17 @@ EOL
 
   echo "Now Adding assets/l10n/ path to pubspec.yaml"
   cd - >/dev/null || exit 1
-  source ./scripts/templates/helper/add_assets_yaml.sh
+
+  # Get the absolute path to the real script location, resolving symlinks
+  SOURCE="${BASH_SOURCE[0]}"
+  while [ -h "$SOURCE" ]; do
+    DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+    SOURCE="$(readlink "$SOURCE")"
+    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+  done
+  SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
+
+  source "$SCRIPT_DIR/templates/helper/add_assets_yaml.sh"
 
   echo "✅ Localization structure created successfully at $DEST_DIR"
   echo "You can now use these localization files in your Flutter project"
