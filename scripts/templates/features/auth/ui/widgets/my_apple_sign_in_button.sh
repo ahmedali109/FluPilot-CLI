@@ -25,7 +25,7 @@ if [ ! -d "$FLUTTER_PROJECT_DIR/assets/images" ]; then
   echo "✅ Added assets directory to pubspec.yaml"
 fi
 
-cp "./scripts/templates/assets/images/apple.png" "${FLUTTER_PROJECT_DIR}/assets/images/"
+cp "$SCRIPT_DIR/templates/assets/images/apple.png" "${FLUTTER_PROJECT_DIR}/assets/images/"
 
 cat <<EOL > "$APPLE_SIGN_IN_BUTTON_FILE"
 import 'package:flutter/material.dart';
