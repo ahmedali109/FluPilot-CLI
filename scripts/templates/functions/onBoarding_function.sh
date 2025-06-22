@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 
 # Get the absolute path to the real script location, resolving symlinks
-SOURCE="${BASH_SOURCE[0]}"
-while [ -h "$SOURCE" ]; do
-  DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
-  SOURCE="$(readlink "$SOURCE")"
-  [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
-done
-SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
+# If SCRIPT_DIR is already set (from parent script), use that instead
+if [ -z "$SCRIPT_DIR" ]; then
+  SOURCE="${BASH_SOURCE[0]}"
+  while [ -h "$SOURCE" ]; do
+    DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+    SOURCE="$(readlink "$SOURCE")"
+    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+  done
+  SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
+fi
 
 
 source "$SCRIPT_DIR/templates/helper/create_onboarding_screen.sh"

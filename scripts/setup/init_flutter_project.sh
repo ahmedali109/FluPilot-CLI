@@ -1,10 +1,12 @@
 #!/usr/bin/env bash
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-ROOT_DIR="$(dirname "$SCRIPT_DIR")"
+# If SCRIPT_DIR is already set (from parent script), use that instead
+if [ -z "$SCRIPT_DIR" ]; then
+  SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+fi
 
 # Source pick_dir function from pick_directory.sh
-source "$ROOT_DIR/pickers/pick_directory.sh"
+source "$SCRIPT_DIR/pickers/pick_directory.sh"
 
 # --- Main Flow ---
 echo "📁 Select project location:"
@@ -49,30 +51,30 @@ echo
 BUNDLE_ID=$(gum input --placeholder "com.example.$PROJECT_NAME")
 
 if [[ -z "${BUNDLE_ID// /}" ]]; then
-# Create project
-echo "🚀 Creating Flutter project at $project_dir/$PROJECT_NAME..."
-(
-    echo "Navigate to the project directory"
-    cd "$ROOT_DIR" || exit 1
-    if flutter create "$project_dir/$PROJECT_NAME"; then
-        echo "✅ Success! Project created."
-        echo "🧹 Removing unnecessary platforms..."
-        rm -rf "$project_dir/$PROJECT_NAME/windows" "$project_dir/$PROJECT_NAME/macos" "$project_dir/$PROJECT_NAME/linux" "$project_dir/$PROJECT_NAME/web"
-        cd - >/dev/null || exit 1
-    else
-        echo "❌ Failed to create project." >&2
-        exit 1
-    fi
-)
+    # Create project
+    echo "🚀 Creating Flutter project at $project_dir/$PROJECT_NAME..."
+    (
+        echo "Navigate to the project directory"
+        cd "$project_dir" || exit 1
+        if flutter create "$PROJECT_NAME"; then
+            echo "✅ Success! Project created."
+            echo "🧹 Removing unnecessary platforms..."
+            rm -rf "$PROJECT_NAME/windows" "$PROJECT_NAME/macos" "$PROJECT_NAME/linux" "$PROJECT_NAME/web"
+            cd - >/dev/null || exit 1
+        else
+            echo "❌ Failed to create project." >&2
+            exit 1
+        fi
+    )
 else
     echo "🚀 Creating Flutter project at $project_dir/$PROJECT_NAME..."
     (
         echo "Navigate to the project directory"
-        cd "$ROOT_DIR" || exit 1
-        if flutter create --org "$BUNDLE_ID" "$project_dir/$PROJECT_NAME"; then
+        cd "$project_dir" || exit 1
+        if flutter create --org "$BUNDLE_ID" "$PROJECT_NAME"; then
             echo "✅ Success! Project created."
             echo "🧹 Removing unnecessary platforms..."
-            rm -rf "$project_dir/$PROJECT_NAME/windows" "$project_dir/$PROJECT_NAME/macos" "$project_dir/$PROJECT_NAME/linux" "$project_dir/$PROJECT_NAME/web"
+            rm -rf "$PROJECT_NAME/windows" "$PROJECT_NAME/macos" "$PROJECT_NAME/linux" "$PROJECT_NAME/web"
             cd - >/dev/null || exit 1
         else
             echo "❌ Failed to create project." >&2
