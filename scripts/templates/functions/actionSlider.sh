@@ -10,7 +10,7 @@ done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
 
 
-source "$SCRIPT_DIR/templates/helper/create_custom_action_slider.sh
+source "$SCRIPT_DIR/templates/helper/create_custom_action_slider.sh"
 
 function actionSlider(){
  DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -25,13 +25,6 @@ function actionSlider(){
   echo "📂 Created directory $DEST_DIR/lib/core/widgets"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating action slider template in $DEST_DIR"
-  if ! grep -q "action_slider:" pubspec.yaml; then
-    echo "❌ action_slider not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  action_slider: latest_version"
-    exit 1
-  fi
   echo "✅ action_slider found in pubspec.yaml."
   echo "📂 Creating custom_action_slider.dart in $DEST_DIR/lib/core/widgets..."
   touch "$DEST_DIR/lib/core/widgets/custom_action_slider.dart" || {

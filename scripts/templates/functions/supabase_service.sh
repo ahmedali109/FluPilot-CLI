@@ -27,15 +27,6 @@ function supabase_service(){
   echo "📂 Created directory $DEST_DIR/lib/core/services"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating supabase_flutter template in $DEST_DIR"
-
-  if ! grep -q "supabase_flutter:" pubspec.yaml; then
-    echo "❌ supabase_flutter not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  supabase_flutter: latest_version"
-    exit 1
-  fi
-
   echo "📂 Creating supabase_service.dart in $DEST_DIR/lib/core/services..."
 
   touch "$DEST_DIR/lib/core/services/supabase_service.dart" || {

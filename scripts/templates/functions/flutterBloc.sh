@@ -10,7 +10,7 @@ done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
 
 
-source "$SCRIPT_DIR/pickers/pick_directory.sh
+source "$SCRIPT_DIR/pickers/pick_directory.sh"
 
 function flutterBloc(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"

@@ -9,8 +9,8 @@ while [ -h "$SOURCE" ]; do
 done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
 
-source "$SCRIPT_DIR/templates/helper/create_easy_localization_structure.sh
-source "$SCRIPT_DIR/templates/permission/ios/easy_localization_permission.sh
+source "$SCRIPT_DIR/templates/helper/create_easy_localization_structure.sh"
+source "$SCRIPT_DIR/templates/permission/ios/easy_localization_permission.sh"
 
 function easy_localization(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -28,15 +28,6 @@ function easy_localization(){
   echo "📂 Created directory $DEST_DIR/assets/l10n"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating easy_localization template in $DEST_DIR"
-
-  if ! grep -q "easy_localization:" pubspec.yaml; then
-    echo "❌ easy_localization not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  easy_localization: latest_version"
-    exit 1
-  fi
-
   echo "📂 Creating localizations in $DEST_DIR/assets/l10n..."
   # Create localization files for all supported languages
   touch "$DEST_DIR/assets/l10n/en.json" || {

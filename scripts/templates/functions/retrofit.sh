@@ -10,7 +10,7 @@ done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
 
 
-source "$SCRIPT_DIR/templates/helper/create_api_service.sh
+source "$SCRIPT_DIR/templates/helper/create_api_service.sh"
 
 function retrofit() {
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -28,15 +28,6 @@ function retrofit() {
   echo "📂 Created directory $DEST_DIR/lib/core/networking"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating retrofit template in $DEST_DIR"
-
-  if ! grep -q "retrofit:" pubspec.yaml; then
-    echo "❌ retrofit not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  retrofit: latest_version"
-    exit 1
-  fi
-
   echo "📂 Creating api_service.dart in $DEST_DIR/lib/core/networking..."
 
   touch "$DEST_DIR/lib/core/networking/api_service.dart" || {

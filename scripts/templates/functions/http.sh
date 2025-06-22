@@ -10,7 +10,7 @@ done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
 
 
-source "$SCRIPT_DIR/templates/helper/create_http_service.sh
+source "$SCRIPT_DIR/templates/helper/create_http_service.sh"
 
 function http(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -25,13 +25,6 @@ function http(){
   echo "📂 Created directory $DEST_DIR/lib/core/networking"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating http template in $DEST_DIR"
-  if ! grep -q "http:" pubspec.yaml; then
-    echo "❌ http not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  http: latest_version"
-    exit 1
-  fi
   echo "✅ http found in pubspec.yaml."
   echo "📂 Creating http_service.dart in $DEST_DIR/lib/core/networking..."
 

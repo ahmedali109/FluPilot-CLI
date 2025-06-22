@@ -10,7 +10,7 @@ done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
 
 
-source "$SCRIPT_DIR/templates/helper/create_go_router.sh
+source "$SCRIPT_DIR/templates/helper/create_go_router.sh"
 
 function goRouter(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -25,13 +25,6 @@ function goRouter(){
   echo "📂 Created directory $DEST_DIR/lib/core/router"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating go_router template in $DEST_DIR"
-  if ! grep -q "go_router:" pubspec.yaml; then
-    echo "❌ go_router not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  go_router: latest_version"
-    exit 1
-  fi
   echo "✅ go_router found in pubspec.yaml."
   echo "📂 Creating go_router.dart in $DEST_DIR/lib/core/router..."
 

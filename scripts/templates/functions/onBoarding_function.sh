@@ -10,7 +10,7 @@ done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
 
 
-source "$SCRIPT_DIR/templates/helper/create_onboarding_screen.sh
+source "$SCRIPT_DIR/templates/helper/create_onboarding_screen.sh"
 
 function onBoarding_function(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -25,13 +25,6 @@ function onBoarding_function(){
   echo "📂 Created directory $DEST_DIR/lib/features/onboarding"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating onboarding Screen template in $DEST_DIR"
-  if ! grep -q "introduction_screen:" pubspec.yaml; then
-    echo "❌ introduction_screen not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  introduction_screen: latest_version"
-    exit 1
-  fi
   echo "✅ introduction_screen found in pubspec.yaml."
   echo "📂 Creating onboarding_screen.dart in $DEST_DIR/lib/features/onboarding..."
   touch "$DEST_DIR/lib/features/onboarding/onboarding_screen.dart" || {

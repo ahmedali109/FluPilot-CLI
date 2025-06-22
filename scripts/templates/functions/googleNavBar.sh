@@ -10,7 +10,7 @@ done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
 
 
-source "$SCRIPT_DIR/templates/helper/create_google_nav_bar.sh
+source "$SCRIPT_DIR/templates/helper/create_google_nav_bar.sh"
 
 function googleNavBar(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -25,13 +25,6 @@ function googleNavBar(){
   echo "📂 Created directory $DEST_DIR/lib/core/widgets"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating google nav bar template in $DEST_DIR"
-  if ! grep -q "google_nav_bar:" pubspec.yaml; then
-    echo "❌ google_nav_bar not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  google_nav_bar: latest_version"
-    exit 1
-  fi
   echo "✅ google_nav_bar found in pubspec.yaml."
   echo "📂 Creating google_navbar.dart in $DEST_DIR/lib/core/widgets..."
   touch "$DEST_DIR/lib/core/widgets/google_navbar.dart" || {

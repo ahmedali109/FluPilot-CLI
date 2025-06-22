@@ -10,7 +10,7 @@ done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
 
 
-source "$SCRIPT_DIR/pickers/pick_image.sh
+source "$SCRIPT_DIR/pickers/pick_image.sh"
 
 function assets_function(){
 
@@ -43,7 +43,7 @@ function assets_function(){
   echo "✅ Successfully copied images to ${DEST_DIR}/icons/"
   echo "📝 Updating pubspec.yaml to include assets..."
 
-  source "$SCRIPT_DIR/templates/helper/add_assets_yaml.sh
+  source "$SCRIPT_DIR/templates/helper/add_assets_yaml.sh"
 
   if [[ $? -ne 0 ]]; then
     echo "❌ Failed to update pubspec.yaml"

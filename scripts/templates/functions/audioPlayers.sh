@@ -10,7 +10,7 @@ done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
 
 
-source "$SCRIPT_DIR/templates/helper/create_audio_player_service.sh
+source "$SCRIPT_DIR/templates/helper/create_audio_player_service.sh"
 
 function audioPlayers(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -25,13 +25,6 @@ function audioPlayers(){
   echo "📂 Created directory $DEST_DIR/lib/core/widgets"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating audio players template in $DEST_DIR"
-  if ! grep -q "audioplayers:" pubspec.yaml; then
-    echo "❌ audioplayers not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  audioplayers: latest_version"
-    exit 1
-  fi
   echo "✅ audioplayers found in pubspec.yaml."
   echo "📂 Creating audio_player_service.dart in $DEST_DIR/lib/core/widgets..."
   touch "$DEST_DIR/lib/core/widgets/audio_player_service.dart" || {

@@ -25,13 +25,6 @@ function imagePicker(){
   echo "📂 Created directory $DEST_DIR/lib/core/widgets"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating image picker template in $DEST_DIR"
-  if ! grep -q "image_picker:" pubspec.yaml; then
-    echo "❌ image_picker not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  image_picker: latest_version"
-    exit 1
-  fi
   echo "✅ image_picker found in pubspec.yaml."
   echo "📂 Creating image_picker.dart in $DEST_DIR/lib/core/widgets..."
   touch "$DEST_DIR/lib/core/widgets/image_picker.dart" || {

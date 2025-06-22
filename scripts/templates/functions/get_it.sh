@@ -10,7 +10,7 @@ done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
 
 
-source "$SCRIPT_DIR/templates/helper/create_dependency_injection.sh
+source "$SCRIPT_DIR/templates/helper/create_dependency_injection.sh"
 
 function get_it(){
  DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -28,15 +28,6 @@ function get_it(){
   echo "📂 Created directory $DEST_DIR/lib/core/di"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating get_it template in $DEST_DIR"
-
-  if ! grep -q "get_it:" pubspec.yaml; then
-    echo "❌ get_it not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  get_it: latest_version"
-    exit 1
-  fi
-
   echo "📂 Creating dependency_injection.dart in $DEST_DIR/lib/core/di..."
   touch "$DEST_DIR/lib/core/di/dependency_injection.dart" || {
     echo "❌ Failed to create dependency_injection.dart"

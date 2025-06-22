@@ -16,15 +16,6 @@ function connectivity_plus(){
   echo "📂 Created directory $DEST_DIR/lib/core/helpers"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating connectivity_plus template in $DEST_DIR"
-
-  if ! grep -q "connectivity_plus:" pubspec.yaml; then
-    echo "❌ connectivity_plus not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  connectivity_plus: latest_version"
-    exit 1
-  fi
-
   echo "✅ connectivity_plus found in pubspec.yaml."
   echo "📂 Creating connectivity_service.dart in $DEST_DIR/lib/core/helpers..."
 

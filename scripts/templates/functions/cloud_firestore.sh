@@ -27,15 +27,6 @@ function cloud_firestore(){
   echo "📂 Created directory $DEST_DIR/lib/core/services"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating cloud_firestore template in $DEST_DIR"
-
-  if ! grep -q "cloud_firestore:" pubspec.yaml; then
-    echo "❌ cloud_firestore not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  cloud_firestore: latest_version"
-    exit 1
-  fi
-
   echo "📂 Creating firestore_service.dart in $DEST_DIR/lib/core/services..."
 
   touch "$DEST_DIR/lib/core/services/firestore_service.dart" || {

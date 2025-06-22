@@ -10,21 +10,12 @@ done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
 
 
-source "$SCRIPT_DIR/templates/helper/create_default_icons_yaml.sh
+source "$SCRIPT_DIR/templates/helper/create_default_icons_yaml.sh"
 
 function app_icon_function(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating app icon using flutter_launcher_icons..."
-  # Ensure flutter_launcher_icons is in pubspec.yaml
-  if ! grep -q "flutter_launcher_icons:" pubspec.yaml; then
-    echo "❌ flutter_launcher_icons not found in pubspec.yaml. Please add it under dev_dependencies."
-    echo "Example:"
-    echo "dev_dependencies:"
-    echo "  flutter_launcher_icons: latest_version"
-    exit 1
-  fi
-
   echo "📂 Creating flutter_launcher_icons.yaml in $DEST_DIR..."
   touch "$DEST_DIR/flutter_launcher_icons.yaml"
   echo "🔧 Configuring app icon in flutter_launcher_icons.yaml..."

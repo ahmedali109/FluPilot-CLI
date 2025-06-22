@@ -9,7 +9,8 @@ while [ -h "$SOURCE" ]; do
 done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
 
-source "$SCRIPT_DIR/templates/helper/create_custom_pull_to_refresh.sh
+source "$SCRIPT_DIR/templates/helper/create_custom_pull_to_refresh.sh"
+
 function pullToRefresh(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
   if [ -z "$DEST_DIR" ]; then
@@ -23,13 +24,6 @@ function pullToRefresh(){
   echo "📂 Created directory $DEST_DIR/lib/core/widgets"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating pull to refresh template in $DEST_DIR"
-  if ! grep -q "liquid_pull_to_refresh:" pubspec.yaml; then
-    echo "❌ liquid_pull_to_refresh not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  liquid_pull_to_refresh: latest_version"
-    exit 1
-  fi
   echo "✅ liquid_pull_to_refresh found in pubspec.yaml."
   echo "📂 Creating custom_pull_to_refresh.dart in $DEST_DIR/lib/core/widgets..."
   touch "$DEST_DIR/lib/core/widgets/custom_pull_to_refresh.dart" || {

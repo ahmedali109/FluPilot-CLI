@@ -10,7 +10,7 @@ done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
 
 
-source "$SCRIPT_DIR/templates/helper/create_api_error_model.sh
+source "$SCRIPT_DIR/templates/helper/create_api_error_model.sh"
 
 function json_serializable(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -28,15 +28,6 @@ function json_serializable(){
   echo "📂 Created directory $DEST_DIR/lib/core/networking"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating json_serializable template in $DEST_DIR"
-
-  if ! grep -q "json_serializable:" pubspec.yaml; then
-    echo "❌ json_serializable not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  json_serializable: latest_version"
-    exit 1
-  fi
-
   echo "📂 Creating api_error_model.dart in $DEST_DIR/lib/core/networking..."
 
   touch "$DEST_DIR/lib/core/networking/api_error_model.dart" || {

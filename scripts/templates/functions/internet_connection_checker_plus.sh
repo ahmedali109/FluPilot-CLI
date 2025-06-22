@@ -16,15 +16,6 @@ function internet_connection_checker_plus(){
   echo "📂 Created directory $DEST_DIR/lib/core/helpers"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating internet_connection_checker_plus template in $DEST_DIR"
-
-  if ! grep -q "internet_connection_checker_plus:" pubspec.yaml; then
-    echo "❌ internet_connection_checker_plus not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  internet_connection_checker_plus: latest_version"
-    exit 1
-  fi
-
   echo "✅ internet_connection_checker_plus found in pubspec.yaml."
   echo "📂 Creating internet_connection_checker_plus_service.dart in $DEST_DIR/lib/core/helpers..."
 

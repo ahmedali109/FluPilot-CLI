@@ -10,9 +10,9 @@ done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
 
 
-source "$SCRIPT_DIR/templates/helper/create_local_auth_service.sh
-source "$SCRIPT_DIR/templates/permission/android/local_auth_permission.sh
-source "$SCRIPT_DIR/templates/permission/ios/local_auth_permission.sh
+source "$SCRIPT_DIR/templates/helper/create_local_auth_service.sh"
+source "$SCRIPT_DIR/templates/permission/android/local_auth_permission.sh"
+source "$SCRIPT_DIR/templates/permission/ios/local_auth_permission.sh"
 
 function local_auth(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -30,15 +30,6 @@ function local_auth(){
   echo "📂 Created directory $DEST_DIR/lib/core/services"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating local_auth template in $DEST_DIR"
-
-  if ! grep -q "local_auth:" pubspec.yaml; then
-    echo "❌ local_auth not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  local_auth: latest_version"
-    exit 1
-  fi
-
   echo "📂 Creating local_auth_service.dart in $DEST_DIR/lib/core/services..."
   touch "$DEST_DIR/lib/core/services/local_auth_service.dart" || {
     echo "❌ Failed to create local_auth_service.dart"

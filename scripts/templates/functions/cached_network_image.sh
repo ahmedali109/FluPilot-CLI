@@ -10,7 +10,7 @@ done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
 
 
-source "$SCRIPT_DIR/templates/helper/create_cached_network_image.sh
+source "$SCRIPT_DIR/templates/helper/create_cached_network_image.sh"
 
 function cached_network_image(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -28,15 +28,6 @@ function cached_network_image(){
   echo "📂 Created directory $DEST_DIR/lib/core/helpers"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating cached_network_image template in $DEST_DIR"
-
-  if ! grep -q "cached_network_image:" pubspec.yaml; then
-    echo "❌ cached_network_image not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  cached_network_image: latest_version"
-    exit 1
-  fi
-
   echo "📂 Creating cached_image.dart in $DEST_DIR/lib/core/helpers..."
 
   touch "$DEST_DIR/lib/core/helpers/cached_image.dart" || {

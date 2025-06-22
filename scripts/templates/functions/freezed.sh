@@ -10,7 +10,7 @@ done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
 
 
-source "$SCRIPT_DIR/templates/helper/create_api_result.sh
+source "$SCRIPT_DIR/templates/helper/create_api_result.sh"
 
 function freezed(){
  DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -28,15 +28,6 @@ function freezed(){
   echo "📂 Created directory $DEST_DIR/lib/core/networking"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating freezed template in $DEST_DIR"
-
-  if ! grep -q "freezed:" pubspec.yaml; then
-    echo "❌ freezed not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  freezed: latest_version"
-    exit 1
-  fi
-
   echo "📂 Creating api_result.dart in $DEST_DIR/lib/core/networking..."
   touch "$DEST_DIR/lib/core/networking/api_result.dart" || {
     echo "❌ Failed to create api_result.dart"

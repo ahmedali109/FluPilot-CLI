@@ -10,8 +10,8 @@ done
 SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
 
 
-source "$SCRIPT_DIR/templates/helper/create_notifications_service.sh
-source "$SCRIPT_DIR/templates/permission/android/notifications_permission.sh
+source "$SCRIPT_DIR/templates/helper/create_notifications_service.sh"
+source "$SCRIPT_DIR/templates/permission/android/notifications_permission.sh"
 
 function flutter_local_notifications(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -29,15 +29,6 @@ function flutter_local_notifications(){
   echo "📂 Created directory $DEST_DIR/lib/core/services"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating flutter_local_notifications template in $DEST_DIR"
-
-  if ! grep -q "flutter_local_notifications:" pubspec.yaml; then
-    echo "❌ flutter_local_notifications not found in pubspec.yaml. Please add it under dependencies."
-    echo "Example:"
-    echo "dependencies:"
-    echo "  flutter_local_notifications: latest_version"
-    exit 1
-  fi
-
   echo "📂 Creating notifications_service.dart in $DEST_DIR/lib/core/services..."
   touch "$DEST_DIR/lib/core/services/notifications_service.dart" || {
     echo "❌ Failed to create notifications_service.dart"

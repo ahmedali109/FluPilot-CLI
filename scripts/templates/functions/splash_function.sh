@@ -16,15 +16,6 @@ function splash_function(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
   cd "$DEST_DIR" || exit 1
   echo "🛠️ Generating splash screen using flutter_native_splash..."
-
-  # Ensure flutter_native_splash is in pubspec.yaml
-  if ! grep -q "flutter_native_splash:" pubspec.yaml; then
-    echo "❌ flutter_native_splash not found in pubspec.yaml. Please add it under dev_dependencies."
-    echo "Example:"
-    echo "dev_dependencies:"
-    echo "  flutter_native_splash: latest_version"
-    exit 1
-  fi
   echo "✅ flutter_native_splash found in pubspec.yaml."
   echo "📂 Creating flutter_native_splash.yaml in $DEST_DIR..."
   touch "$DEST_DIR/flutter_native_splash.yaml"
