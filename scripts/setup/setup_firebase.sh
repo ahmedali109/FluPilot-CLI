@@ -103,6 +103,16 @@ function flutterfire_configure_helper(){
 
 # ========== SCRIPT EXECUTION ==========
 
+# Check if pubspec.yaml contains firebase_core
+PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+if ! grep -q "firebase_core:" "$PUBSPEC_FILE"; then
+    echo "Adding firebase_core dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add firebase_core && flutter pub get)
+    echo "✅ firebase_core dependency added to pubspec.yaml."
+else
+    echo "firebase_core dependency already exists in pubspec.yaml."
+fi
+
 echo -e "${CYAN}🔍 Checking for Node.js...${NC}"
 if command_exists node; then
     echo -e "${GREEN}✅ Node.js is installed: $(node -v)${NC}"

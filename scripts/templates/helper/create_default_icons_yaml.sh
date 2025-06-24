@@ -4,7 +4,15 @@
 function create_default_icon_yaml() {
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
   ICON_FILE="$DEST_DIR/flutter_launcher_icons.yaml"
-
+  # check if flutter_launcher_icons dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "flutter_launcher_icons:" "$PUBSPEC_FILE"; then
+    echo "Adding flutter_launcher_icons dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add flutter_launcher_icons && flutter pub get)
+    echo "✅ flutter_launcher_icons dependency added to pubspec.yaml."
+  else
+    echo "flutter_launcher_icons dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$ICON_FILE"
 # flutter pub run flutter_launcher_icons
 flutter_launcher_icons:

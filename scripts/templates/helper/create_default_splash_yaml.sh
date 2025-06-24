@@ -4,7 +4,15 @@
 function create_default_splash_yaml() {
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
   SPLASH_FILE="$DEST_DIR/flutter_native_splash.yaml"
-
+  # check if flutter_native_splash dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "flutter_native_splash:" "$PUBSPEC_FILE"; then
+    echo "Adding flutter_native_splash dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add flutter_native_splash && flutter pub get)
+    echo "✅ flutter_native_splash dependency added to pubspec.yaml."
+  else
+    echo "flutter_native_splash dependency already exists in pubspec.yaml."
+  fi
   cat <<EOL > "$SPLASH_FILE"
 flutter_native_splash:
   # This package generates native code to customize Flutter's default white native splash screen

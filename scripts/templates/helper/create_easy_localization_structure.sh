@@ -2,6 +2,15 @@
 
 function create_easy_localization_structure(){
   DEST_DIR="${FLUTTER_PROJECT_DIR}/assets/l10n"
+  # Check if pubspec.yaml contains easy_localization dependency
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "easy_localization:" "$PUBSPEC_FILE"; then
+    echo "Adding easy_localization dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add easy_localization && flutter pub get)
+    echo "✅ easy_localization dependency added to pubspec.yaml."
+  else
+    echo "easy_localization dependency already exists in pubspec.yaml."
+  fi
   # Create English file
   ENGLISH_FILE="$DEST_DIR/en.json"
   cat <<EOL > "$ENGLISH_FILE"
