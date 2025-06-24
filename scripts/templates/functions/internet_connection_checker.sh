@@ -24,6 +24,16 @@ function internet_connection_checker(){
     exit 1
   }
 
+  # Check if pubspec.yaml contains internet_connection_checker dependency
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "internet_connection_checker:" "$PUBSPEC_FILE"; then
+    echo "Adding internet_connection_checker dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add internet_connection_checker && flutter pub get)
+    echo "✅ internet_connection_checker dependency added to pubspec.yaml."
+  else
+    echo "internet_connection_checker dependency already exists in pubspec.yaml."
+  fi
+
   create_internet_connection_service_content() {
     cat <<EOF > "$DEST_DIR/lib/core/helpers/internet_connection_service.dart"
 import 'package:internet_connection_checker/internet_connection_checker.dart';

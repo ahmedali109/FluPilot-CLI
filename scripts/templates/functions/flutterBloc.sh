@@ -47,7 +47,15 @@ function flutterBloc(){
     echo "❌ Failed to create directory $PICKED_DIR/cubit/$NAME_CUBIT"
     exit 1
   fi
-
+  # check if flutter_bloc dependency is in pubspec.yaml
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "flutter_bloc:" "$PUBSPEC_FILE"; then
+    echo "Adding flutter_bloc dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add flutter_bloc && flutter pub get)
+    echo "✅ flutter_bloc dependency added to pubspec.yaml."
+  else
+    echo "flutter_bloc dependency already exists in pubspec.yaml."
+  fi
   echo "📂 Created directory $PICKED_DIR/cubit/$NAME_CUBIT"
   cat <<EOF > "$PICKED_DIR/cubit/$NAME_CUBIT/${NAME_CUBIT}_state.dart"
 part of '${NAME_CUBIT}_cubit.dart';

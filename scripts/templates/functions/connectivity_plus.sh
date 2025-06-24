@@ -24,6 +24,16 @@ function connectivity_plus(){
     exit 1
   }
 
+  # Check if pubspec.yaml contains connectivity_plus dependency
+  PUBSPEC_FILE="${FLUTTER_PROJECT_DIR}/pubspec.yaml"
+  if ! grep -q "connectivity_plus:" "$PUBSPEC_FILE"; then
+    echo "Adding connectivity_plus dependency to pubspec.yaml..."
+    (cd "$FLUTTER_PROJECT_DIR" && flutter pub add connectivity_plus && flutter pub get)
+    echo "✅ connectivity_plus dependency added to pubspec.yaml."
+  else
+    echo "connectivity_plus dependency already exists in pubspec.yaml."
+  fi
+
   create_connectivity_service_content() {
     cat <<EOF > "$DEST_DIR/lib/core/helpers/connectivity_service.dart"
 

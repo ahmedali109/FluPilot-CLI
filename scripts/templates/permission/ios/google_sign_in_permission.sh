@@ -1,4 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
+# Source the iOS permission handler utility
+source "$(dirname "${BASH_SOURCE[0]}")/../../../utils/ios_permission_handler.sh"
 
 function add_google_signin_ios_config() {
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -48,110 +51,20 @@ function add_google_signin_ios_config() {
   # Prompt for required values
   if [[ " ${AUTH_PACKAGES[*]} " == *"firebase_auth"* ]]; then
     IOS_CLIENT_ID=$(gum input --placeholder "Enter your iOS Client ID (GIDServerClientID)")
-  fi
-  if [[ " ${AUTH_PACKAGES[*]} " == *"firebase_auth"* ]] || [[ " ${AUTH_PACKAGES[*]} " == *"supabase_flutter"* ]]; then
-    REVERSED_CLIENT_ID=$(gum input --placeholder "Enter your REVERSED_CLIENT_ID")
-  fi
+    REVERSED_CLIENT_ID=$(gum input --placeholder "Enter your Reversed Client ID (from GoogleService-Info.plist)")
 
-  # Create temporary file for configuration
-  TMP_CONFIG=$(mktemp)
+    # Add iOS Client ID permission using safe handler
+    add_ios_permission_safe "$PLIST_FILE" "GIDServerClientID" "$IOS_CLIENT_ID"
 
-  # Build configuration with proper indentation (2 tabs for main keys, 3 tabs for nested)
-  if [[ " ${AUTH_PACKAGES[*]} " == *"firebase_auth"* ]]; then
-    cat >> "$TMP_CONFIG" << EOF
-		<!-- Google Sign-in Section (Firebase Auth) -->
-		<key>GIDClientID</key>
-		<string>$IOS_CLIENT_ID</string>
-		<!-- End of the Google Sign-in Section (Firebase Auth) -->
-EOF
-  fi
+    # Add URL scheme using safe handler
+    add_url_scheme_safe "$PLIST_FILE" "$REVERSED_CLIENT_ID" "Google Sign-in URL Scheme (Firebase Auth)"
 
-  # Add CFBundleURLTypes section
-  if [[ " ${AUTH_PACKAGES[*]} " == *"firebase_auth"* ]] && [[ " ${AUTH_PACKAGES[*]} " == *"supabase_flutter"* ]]; then
-    cat >> "$TMP_CONFIG" << EOF
-		<!-- Google Sign-in URL Scheme (Used by Firebase Auth & Supabase) -->
-		<key>CFBundleURLTypes</key>
-		<array>
-			<dict>
-				<key>CFBundleTypeRole</key>
-				<string>Editor</string>
-				<key>CFBundleURLSchemes</key>
-				<array>
-					<string>$REVERSED_CLIENT_ID</string>
-				</array>
-			</dict>
-		</array>
-		<!-- End of Google Sign-in URL Scheme -->
-EOF
-  elif [[ " ${AUTH_PACKAGES[*]} " == *"firebase_auth"* ]]; then
-    cat >> "$TMP_CONFIG" << EOF
-		<!-- Google Sign-in URL Scheme (Firebase Auth) -->
-		<key>CFBundleURLTypes</key>
-		<array>
-			<dict>
-				<key>CFBundleTypeRole</key>
-				<string>Editor</string>
-				<key>CFBundleURLSchemes</key>
-				<array>
-					<string>$REVERSED_CLIENT_ID</string>
-				</array>
-			</dict>
-		</array>
-		<!-- End of Google Sign-in URL Scheme (Firebase Auth) -->
-EOF
   elif [[ " ${AUTH_PACKAGES[*]} " == *"supabase_flutter"* ]]; then
-    cat >> "$TMP_CONFIG" << EOF
-		<!-- Google Sign-in URL Scheme (Supabase) -->
-		<key>CFBundleURLTypes</key>
-		<array>
-			<dict>
-				<key>CFBundleTypeRole</key>
-				<string>Editor</string>
-				<key>CFBundleURLSchemes</key>
-				<array>
-					<string>$REVERSED_CLIENT_ID</string>
-				</array>
-			</dict>
-		</array>
-		<!-- End of Google Sign-in URL Scheme (Supabase) -->
-EOF
+    REVERSED_CLIENT_ID=$(gum input --placeholder "Enter your Reversed Client ID (from GoogleService-Info.plist)")
+
+    # Add URL scheme using safe handler
+    add_url_scheme_safe "$PLIST_FILE" "$REVERSED_CLIENT_ID" "Google Sign-in URL Scheme (Supabase)"
   fi
-
-  # Insert configuration before the last </dict> (which is followed by </plist>)
-  TMP_PLIST="${PLIST_FILE}.tmp"
-
-  # Use awk to insert the configuration at the right place
-  awk '
-  BEGIN {
-    # Read the configuration file
-    while ((getline line < "'$TMP_CONFIG'") > 0) {
-      config = config line "\n"
-    }
-    close("'$TMP_CONFIG'")
-  }
-  /<\/dict>$/ && !found_last_dict {
-    # Check if next line is </plist>
-    next_line_num = NR + 1
-    if ((getline next_line) > 0) {
-      if (next_line ~ /<\/plist>/) {
-        # This is the last </dict> before </plist>
-        print config $0
-        print next_line
-        found_last_dict = 1
-        next
-      } else {
-        # Not the last </dict>, print current line and put back next_line
-        print $0
-        print next_line
-        next
-      }
-    }
-  }
-  { print }
-  ' "$PLIST_FILE" > "$TMP_PLIST" && mv "$TMP_PLIST" "$PLIST_FILE"
-
-  # Clean up temporary file
-  rm -f "$TMP_CONFIG"
 
   echo "✅ Successfully updated Info.plist with Google Sign-In config for: ${AUTH_PACKAGES[*]}"
   echo "📂 Updated Info.plist at $PLIST_FILE"
