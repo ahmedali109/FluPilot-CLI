@@ -1,10 +1,21 @@
 #!/bin/bash
 
+# If SCRIPT_DIR is already set (from parent script), use that instead
+if [ -z "$SCRIPT_DIR" ]; then
+  SOURCE="${BASH_SOURCE[0]}"
+  while [ -h "$SOURCE" ]; do
+    DIR="$(cd -P "$(dirname "$SOURCE")" && pwd)"
+    SOURCE="$(readlink "$SOURCE")"
+    [[ $SOURCE != /* ]] && SOURCE="$DIR/$SOURCE"
+  done
+  SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../../.." && pwd)"
+fi
+
 # Cache file to store the last picked directory (in current working directory)
 CACHE_FILE="$(pwd)/.flupilot_last_directory"
 
 if [ -z "${FLUTTER_PROJECT_DIR:-}" ]; then
-  source "scripts/pickers/pick_directory.sh"
+  source "$SCRIPT_DIR/pickers/pick_directory.sh"
 
   # Try to load from cache first to use as starting directory
   if [ -f "$CACHE_FILE" ]; then
