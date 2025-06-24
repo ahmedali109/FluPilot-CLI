@@ -1,4 +1,7 @@
-#!/usr/bin/env bash
+#!/bin/bash
+
+# Source the iOS permission handler utility
+source "$(dirname "${BASH_SOURCE[0]}")/../../../utils/ios_permission_handler.sh"
 
 function add_image_picker_ios_permission() {
   DEST_DIR="${FLUTTER_PROJECT_DIR}"
@@ -21,56 +24,12 @@ function add_image_picker_ios_permission() {
     echo "📂 Found Info.plist in $DEST_DIR/ios/Runner"
     echo "Adding required permissions for image picker..."
 
-    # Create temporary file for configuration
-    TMP_CONFIG=$(mktemp)
+    # Add image picker permissions using the safe handler
+    add_camera_permission "$PLIST_FILE"
+    add_microphone_permission "$PLIST_FILE"
+    add_photo_library_permission "$PLIST_FILE"
 
-    # Build image picker permissions with proper indentation (2 tabs for main keys)
-    cat >> "$TMP_CONFIG" << 'EOF'
-		<key>NSCameraUsageDescription</key>
-		<string>This app requires access to the camera to record videos.</string>
-		<key>NSMicrophoneUsageDescription</key>
-		<string>This app requires access to the microphone to record audio for videos.</string>
-		<key>NSPhotoLibraryUsageDescription</key>
-		<string>This app requires access to the photo library to select and play videos.</string>
-EOF
-
-    # Insert configuration before the last </dict> (which is followed by </plist>)
-    TMP_PLIST="${PLIST_FILE}.tmp"
-
-    # Use awk to insert the configuration at the right place
-    awk '
-    BEGIN {
-      # Read the configuration file
-      while ((getline line < "'$TMP_CONFIG'") > 0) {
-        config = config line "\n"
-      }
-      close("'$TMP_CONFIG'")
-    }
-    /<\/dict>$/ && !found_last_dict {
-      # Check if next line is </plist>
-      next_line_num = NR + 1
-      if ((getline next_line) > 0) {
-        if (next_line ~ /<\/plist>/) {
-          # This is the last </dict> before </plist>
-          print config $0
-          print next_line
-          found_last_dict = 1
-          next
-        } else {
-          # Not the last </dict>, print current line and put back next_line
-          print $0
-          print next_line
-          next
-        }
-      }
-    }
-    { print }
-    ' "$PLIST_FILE" > "$TMP_PLIST" && mv "$TMP_PLIST" "$PLIST_FILE"
-
-    # Clean up temporary file
-    rm -f "$TMP_CONFIG"
-
-    echo "✅ Successfully added image picker permissions to Info.plist"
+    echo "✅ Successfully processed image picker permissions"
   else
     echo "❌ Info.plist not found at $PLIST_FILE"
     exit 1
