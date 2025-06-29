@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function execute_flag_commands(){
   local file_path="$1"
@@ -76,6 +76,9 @@ function show_help() {
   echo "Localization & Notifications:"
   echo "  --easy-localization             Add multi-language support"
   echo "  --local-notifications           Add local notifications"
+  echo ""
+  echo "assistant_files"
+  echo "  --assistant-files               Generate assistant files for project"
   echo ""
 }
 
@@ -299,6 +302,12 @@ case "${1:-}" in
     source "$SCRIPT_DIR/setup/project_directory_setup.sh"
     execute_flag_commands "$SCRIPT_DIR/templates/functions/flutter_local_notifications.sh"
     flutter_local_notifications
+    exit 0
+    ;;
+  --assistants-files)
+    source "$SCRIPT_DIR/setup/project_directory_setup.sh"
+    execute_flag_commands "$SCRIPT_DIR/templates/gen/assistants_files.sh"
+    assistants_files
     exit 0
     ;;
   *)

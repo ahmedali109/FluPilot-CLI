@@ -101,12 +101,13 @@ class FirebaseAuthRepo implements AuthRepo {
   @override
   Future<AppUser?> signInWithGoogle() async {
     try {
-      final GoogleSignInAccount? gUser = await GoogleSignIn().signIn();
-      if (gUser == null) return null; // User cancelled the sign-in
-      final GoogleSignInAuthentication gAuth = await gUser.authentication;
-      final credential = GoogleAuthProvider.credential(
-        accessToken: gAuth.accessToken,
-        idToken: gAuth.idToken,
+      final GoogleSignIn googleSignIn = GoogleSignIn.instance;
+      await googleSignIn.initialize();
+      await googleSignIn.signOut();
+      final GoogleSignInAccount googleUser = await googleSignIn.authenticate();
+      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
+      final OAuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
       );
       UserCredential userCredential =
           await firebaseAuth.signInWithCredential(credential);

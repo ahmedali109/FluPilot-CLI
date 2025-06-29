@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Source the iOS permission handler utility
 source "$(dirname "${BASH_SOURCE[0]}")/../../../utils/ios_permission_handler.sh"
@@ -41,20 +41,17 @@ function add_google_signin_ios_config() {
     AUTH_PACKAGES+=("supabase_flutter")
   fi
 
-  if [ ${#AUTH_PACKAGES[@]} -eq 0 ]; then
-    echo "❌ Neither firebase_auth nor supabase_flutter found in pubspec.yaml. Exiting."
-    exit 1
-  else
+  if [ ${#AUTH_PACKAGES[@]} -ne 0 ]; then
     echo "ℹ️ Detected authentication package(s): ${AUTH_PACKAGES[*]}"
   fi
 
   # Prompt for required values
   if [[ " ${AUTH_PACKAGES[*]} " == *"firebase_auth"* ]]; then
-    IOS_CLIENT_ID=$(gum input --placeholder "Enter your iOS Client ID (GIDServerClientID)")
+    IOS_CLIENT_ID=$(gum input --placeholder "Enter your iOS Client ID (GIDClientID)")
     REVERSED_CLIENT_ID=$(gum input --placeholder "Enter your Reversed Client ID (from GoogleService-Info.plist)")
 
     # Add iOS Client ID permission using safe handler
-    add_ios_permission_safe "$PLIST_FILE" "GIDServerClientID" "$IOS_CLIENT_ID"
+    add_ios_permission_safe "$PLIST_FILE" "GIDClientID" "$IOS_CLIENT_ID"
 
     # Add URL scheme using safe handler
     add_url_scheme_safe "$PLIST_FILE" "$REVERSED_CLIENT_ID" "Google Sign-in URL Scheme (Firebase Auth)"

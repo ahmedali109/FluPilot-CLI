@@ -75,28 +75,36 @@ class SupabaseAuthRepo implements AuthRepo {
     if (webClientId.isEmpty || iosClientId.isEmpty) {
       throw 'Please provide your web and iOS client IDs for Google Sign-In.';
     }
-    final GoogleSignIn googleSignIn = GoogleSignIn(
-      clientId: iosClientId,
-      serverClientId: webClientId,
-    );
-    final gUser = await googleSignIn.signIn();
-    if (gUser == null) return null; // User cancelled the sign-in
-    final googleAuth = await gUser.authentication;
-    final accessToken = googleAuth.accessToken;
-    final idToken = googleAuth.idToken;
-    if (accessToken == null) {
-      throw 'No Access Token found.';
+
+    try {
+      final GoogleSignIn googleSignIn = GoogleSignIn.instance;
+      await googleSignIn.initialize(
+        clientId: iosClientId, // Use webClientId for web, iosClientId for iOS
+      );
+      await googleSignIn.signOut(); // Optional: ensures a fresh sign-in
+
+      GoogleSignInAccount? gUser;
+      if (googleSignIn.supportsAuthenticate()) {
+        gUser = await googleSignIn.authenticate();
+      }
+      if (gUser == null) {
+        throw 'Google Sign-In failed: No user returned.';
+      }
+      final GoogleSignInAuthentication gAuth = gUser.authentication;
+      if (gAuth.idToken == null) {
+        throw 'Google Sign-In failed: No ID token received.';
+      }
+      await _supabase.auth.signInWithIdToken(
+        provider: OAuthProvider.google,
+        idToken: gAuth.idToken!,
+      );
+      final user = _supabase.auth.currentUser;
+      return user != null
+          ? AppUser(uid: user.id, email: user.email ?? '')
+          : null;
+    } catch (e) {
+      return null;
     }
-    if (idToken == null) {
-      throw 'No ID Token found.';
-    }
-    await _supabase.auth.signInWithIdToken(
-      provider: OAuthProvider.google,
-      idToken: idToken,
-      accessToken: accessToken,
-    );
-    final user = _supabase.auth.currentUser;
-    return user != null ? AppUser(uid: user.id, email: user.email ?? '') : null;
   }
 }
 EOL

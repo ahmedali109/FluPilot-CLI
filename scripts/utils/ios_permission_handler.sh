@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # iOS Permission Handler Utility
 # This script provides functions to safely add iOS permissions to Info.plist
