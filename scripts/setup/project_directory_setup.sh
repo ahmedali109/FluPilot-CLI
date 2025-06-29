@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # If SCRIPT_DIR is already set (from parent script), use that instead
 if [ -z "$SCRIPT_DIR" ]; then

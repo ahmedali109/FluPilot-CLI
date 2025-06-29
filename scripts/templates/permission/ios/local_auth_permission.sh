@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # Source the iOS permission handler utility
 source "$(dirname "${BASH_SOURCE[0]}")/../../../utils/ios_permission_handler.sh"

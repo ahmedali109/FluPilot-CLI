@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 function execute_flag_commands(){
   local file_path="$1"
