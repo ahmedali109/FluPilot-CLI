@@ -36,15 +36,9 @@ function add_google_signin_ios_config() {
   AUTH_PACKAGES=()
   if grep -q "firebase_auth:" "$DEST_DIR/pubspec.yaml"; then
     AUTH_PACKAGES+=("firebase_auth")
-    echo "Adding firebase_auth dependency to pubspec.yaml..."
-    (flutter pub add firebase_auth && flutter pub get)
-    echo "✅ firebase_auth dependency added to pubspec.yaml."
   fi
   if grep -q "supabase_flutter:" "$DEST_DIR/pubspec.yaml"; then
     AUTH_PACKAGES+=("supabase_flutter")
-    echo "Adding supabase_flutter dependency to pubspec.yaml..."
-    (flutter pub add supabase_flutter && flutter pub get)
-    echo "✅ supabase_flutter dependency added to pubspec.yaml."
   fi
 
   if [ ${#AUTH_PACKAGES[@]} -ne 0 ]; then
