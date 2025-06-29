@@ -27,10 +27,10 @@ function create_app_strings() {
   cat <<EOL > "$DEST_DIR/lib/core/constants/app_strings.dart"
 class AppStrings {
   AppStrings._();
-  static const String supabaseUrl = "https://liikflvgsokyrceuunim.supabase.co";
-  static const String supabaseAnonKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxpaWtmbHZnc29reXJjZXV1bmltIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDkwNjU2NzUsImV4cCI6MjA2NDY0MTY3NX0.kwnWQ9FhNPBEQ7U6akh6PFP_m-9CfYoR7HCrFwfpgh4";
-  static const String webClientId = "888545710373-ji0dahmu5kjtvgeietvr7ej6fuk3mrmr.apps.googleusercontent.com";
-  static const String iosClientId = "888545710373-0i5fqeeqti3o5tk6rbclh7oo1f5g5a8h.apps.googleusercontent.com";
+  static const String supabaseUrl = "Add your Supabase URL here";
+  static const String supabaseAnonKey = "Add your Supabase Anon Key here";
+  static const String webClientId = "Add your Web Client ID here";
+  static const String iosClientId = "Add your iOS Client ID here";
 }
 
 class AppLocale {
