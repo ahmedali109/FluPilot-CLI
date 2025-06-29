@@ -1,6 +1,6 @@
 {
   "name": "flupilot-cli",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "FluPilot CLI is a lightweight tool to scaffold Flutter projects faster — with interactive package selection, auto-generated boilerplate, and a clean project setup",
   "bin": {
     "flupilot-cli": "./scripts/helper/check_and_install_deps.sh"
