@@ -93,12 +93,12 @@ if [ -z "$SCRIPT_DIR" ]; then
   SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../.." && pwd)"
 fi
 
-echo "Using script directory: $SCRIPT_DIR"
+VERSIONFILE="$(cd -P "$(dirname "$SOURCE")/../.." && pwd)"
 
 case "${1:-}" in
   --version|-v)
     # Read from package.json
-    VERSION=$(node -p "require('./package.json').version")
+    VERSION=$(jq -r '.version' "$VERSIONFILE/package.json")
     echo "FluPilot CLI $VERSION"
     exit 0
     ;;
