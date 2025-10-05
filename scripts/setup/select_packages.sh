@@ -22,6 +22,7 @@ trap 'echo "\n❌ Selection cancelled by user."; exit 1' SIGINT
 IFS=$'\n' read -r -d '' -a SELECTED_CATEGORIES < <(
   gum choose "${GUM_SELECTED_STYLE[@]}" \
     --no-limit \
+    --height=5 \
     --header="📦 Select categories of packages" \
     "${CATEGORIES[@]}" && printf '\0'
 )
