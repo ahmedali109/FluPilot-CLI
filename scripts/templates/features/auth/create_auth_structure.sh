@@ -25,7 +25,6 @@ echo "📂 Creating auth module structure at ${BASE_DIR}..."
 mkdir -p $BASE_DIR/data/models
 mkdir -p $BASE_DIR/data/repo
 mkdir -p $BASE_DIR/logic/auth
-mkdir -p $BASE_DIR/ui/widgets
 
 # Create Dart files
 touch $BASE_DIR/data/models/app_user.dart
@@ -45,33 +44,6 @@ fi
 touch $BASE_DIR/logic/auth/auth_cubit.dart
 touch $BASE_DIR/logic/auth/auth_state.dart
 
-touch $BASE_DIR/ui/widgets/confirm_password_field.dart
-touch $BASE_DIR/ui/widgets/email_field.dart
-touch $BASE_DIR/ui/widgets/forget_password_button.dart
-touch $BASE_DIR/ui/widgets/login_now_row.dart
-touch $BASE_DIR/ui/widgets/my_apple_sign_in_button.dart
-touch $BASE_DIR/ui/widgets/my_button.dart
-touch $BASE_DIR/ui/widgets/my_google_sign_in_button.dart
-touch $BASE_DIR/ui/widgets/my_textfield.dart
-touch $BASE_DIR/ui/widgets/name_field.dart
-touch $BASE_DIR/ui/widgets/password_field.dart
-touch $BASE_DIR/ui/widgets/password_validations.dart
-touch $BASE_DIR/ui/widgets/register_button.dart
-touch $BASE_DIR/ui/widgets/register_now_row.dart
-touch $BASE_DIR/ui/widgets/social_login_row.dart
-touch $BASE_DIR/ui/widgets/forgot_password_content.dart
-touch $BASE_DIR/ui/widgets/forgot_password_email_form.dart
-touch $BASE_DIR/ui/widgets/forgot_password_header.dart
-touch $BASE_DIR/ui/widgets/forgot_password_icon.dart
-touch $BASE_DIR/ui/widgets/forgot_password_success_state.dart
-touch $BASE_DIR/ui/widgets/forgot_password_title.dart
-touch $BASE_DIR/ui/widgets/reset_link_button.dart
-
-touch $BASE_DIR/ui/login_or_register.dart
-touch $BASE_DIR/ui/login_page.dart
-touch $BASE_DIR/ui/register_page.dart
-touch $BASE_DIR/ui/forgot_password_page.dart
-
 # Fill Dart files with boilerplate code
 
 source "$SCRIPT_DIR/templates/features/auth/data/models/app_user.sh"
@@ -79,33 +51,6 @@ source "$SCRIPT_DIR/templates/features/auth/data/repo/auth_repo.sh"
 
 source "$SCRIPT_DIR/templates/features/auth/logic/auth/auth_cubit.sh"
 source "$SCRIPT_DIR/templates/features/auth/logic/auth/auth_state.sh"
-
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/confirm_password_field.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/email_field.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/forget_password_button.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/login_now_row.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/my_apple_sign_in_button.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/my_button.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/my_google_sign_in_button.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/my_textfield.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/password_validations.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/name_field.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/password_field.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/register_button.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/register_now_row.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/social_login_row.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/forgot_password_content.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/forgot_password_email_form.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/forgot_password_header.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/forgot_password_icon.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/forgot_password_success_state.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/forgot_password_title.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/widgets/reset_link_button.sh"
-
-source "$SCRIPT_DIR/templates/features/auth/ui/login_or_register.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/login_page.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/register_page.sh"
-source "$SCRIPT_DIR/templates/features/auth/ui/forgot_password.sh"
 
 # Print success message
 echo "✅ Auth module structure created successfully!"

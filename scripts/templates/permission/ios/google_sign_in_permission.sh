@@ -43,10 +43,12 @@ function add_google_signin_ios_config() {
 
   if [ ${#AUTH_PACKAGES[@]} -ne 0 ]; then
     echo "ℹ️ Detected authentication package(s): ${AUTH_PACKAGES[*]}"
+  else
+    echo "ℹ️ No authentication packages detected (firebase_auth or supabase_flutter)"
   fi
 
   # Prompt for required values
-  if [[ " ${AUTH_PACKAGES[*]} " == *"firebase_auth"* ]]; then
+  if [[ " ${AUTH_PACKAGES[*]:-} " == *"firebase_auth"* ]]; then
     IOS_CLIENT_ID=$(gum input --placeholder "Enter your iOS Client ID (GIDClientID)")
     REVERSED_CLIENT_ID=$(gum input --placeholder "Enter your Reversed Client ID (from GoogleService-Info.plist)")
 
@@ -56,14 +58,23 @@ function add_google_signin_ios_config() {
     # Add URL scheme using safe handler
     add_url_scheme_safe "$PLIST_FILE" "$REVERSED_CLIENT_ID" "Google Sign-in URL Scheme (Firebase Auth)"
 
-  elif [[ " ${AUTH_PACKAGES[*]} " == *"supabase_flutter"* ]]; then
+  elif [[ " ${AUTH_PACKAGES[*]:-} " == *"supabase_flutter"* ]]; then
     REVERSED_CLIENT_ID=$(gum input --placeholder "Enter your Reversed Client ID (from GoogleService-Info.plist)")
 
     # Add URL scheme using safe handler
     add_url_scheme_safe "$PLIST_FILE" "$REVERSED_CLIENT_ID" "Google Sign-in URL Scheme (Supabase)"
+  else
+    echo "⚠️ No supported authentication packages found."
+    echo "💡 This script supports firebase_auth and supabase_flutter packages."
+    echo "📝 Please add one of these packages to your pubspec.yaml if you want to use Google Sign-In."
+    return 0
   fi
 
-  echo "✅ Successfully updated Info.plist with Google Sign-In config for: ${AUTH_PACKAGES[*]}"
+  if [ ${#AUTH_PACKAGES[@]} -ne 0 ]; then
+    echo "✅ Successfully updated Info.plist with Google Sign-In config for: ${AUTH_PACKAGES[*]}"
+  else
+    echo "ℹ️ No configuration changes were made."
+  fi
   echo "📂 Updated Info.plist at $PLIST_FILE"
 
   # Navigate back to the original directory

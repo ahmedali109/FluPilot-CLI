@@ -93,13 +93,34 @@ if [ -z "$SCRIPT_DIR" ]; then
   SCRIPT_DIR="$(cd -P "$(dirname "$SOURCE")/../.." && pwd)"
 fi
 
-echo "Using script directory: $SCRIPT_DIR"
+# Find the root directory containing package.json
+# If SCRIPT_DIR points to the scripts directory, go one level up to find package.json
+if [[ -f "$SCRIPT_DIR/package.json" ]]; then
+  ROOT_DIR="$SCRIPT_DIR"
+elif [[ -f "$SCRIPT_DIR/../package.json" ]]; then
+  ROOT_DIR="$(cd -P "$SCRIPT_DIR/.." && pwd)"
+else
+  # Fallback: try to find package.json by going up from current script location
+  CURRENT_DIR="$(cd -P "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+  while [[ "$CURRENT_DIR" != "/" ]]; do
+    if [[ -f "$CURRENT_DIR/package.json" ]]; then
+      ROOT_DIR="$CURRENT_DIR"
+      break
+    fi
+    CURRENT_DIR="$(cd -P "$CURRENT_DIR/.." && pwd)"
+  done
+fi
 
 case "${1:-}" in
   --version|-v)
-    # Read from package.json
-    VERSION=$(node -p "require('./package.json').version")
-    echo "FluPilot CLI $VERSION"
+    # Read from package.json using grep and sed (more portable than jq)
+    PACKAGE_JSON_PATH="$ROOT_DIR/package.json"
+    if [[ -f "$PACKAGE_JSON_PATH" ]]; then
+      VERSION=$(grep -o '"version"[[:space:]]*:[[:space:]]*"[^"]*"' "$PACKAGE_JSON_PATH" | sed 's/.*"version"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/')
+      echo "FluPilot CLI $VERSION"
+    else
+      echo "FluPilot CLI (version unavailable - package.json not found at: $PACKAGE_JSON_PATH)"
+    fi
     exit 0
     ;;
   --help|-h)

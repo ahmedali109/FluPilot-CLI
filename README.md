@@ -83,7 +83,7 @@ lib/
 │       │   ├── models/    # Data models with JSON serialization
 │       │   └── repo/      # Repository pattern implementation
 │       ├── logic/         # BLoC/Cubit state management
-│       └── ui/            # Screens and widgets
+│      
 └── main.dart
 ```
 
